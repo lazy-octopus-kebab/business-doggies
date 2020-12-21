@@ -42,8 +42,7 @@ INSTALLED_APPS = [
 
     # own
     'business_doggies.core',
-    'business_doggies.clients',
-    'business_doggies.sitters',
+    'business_doggies.accounts',
     'business_doggies.offers',
 ]
 
@@ -130,3 +129,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+# Substituting a custom User model
+AUTH_USER_MODEL = 'accounts.User'
