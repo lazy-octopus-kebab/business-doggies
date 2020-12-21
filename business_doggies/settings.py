@@ -37,6 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 3rd parties
+
+    # own
+    'business_doggies.core',
+    'business_doggies.clients',
+    'business_doggies.sitters',
 ]
 
 MIDDLEWARE = [
