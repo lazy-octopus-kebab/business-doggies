@@ -1,15 +1,16 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
 
 
 class Offer(models.Model):
     client = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='offers',
+        related_name='proposals',
     )
     sitter = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='offers',
     )

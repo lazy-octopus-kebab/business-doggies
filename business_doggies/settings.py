@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'business_doggies.core',
     'business_doggies.accounts',
     'business_doggies.offers',
+    'business_doggies.reviews',
 ]
 
 MIDDLEWARE = [
