@@ -1,17 +1,21 @@
 {% extends 'base.html' %}
-  
+
+{% block link %}
+    <link rel="stylesheet" href="../static/css/header.css">
+{% endblock link %}
+
 {% block content %}
     <div class="wrapper">
         <div class="container">
             <header class="header">
                 <div class="header_wrapper">
                     <div class="logo">logo</div>
-                <a class="reg">Log in</a>
+                    <a class=reg>Log in</a>
                 </div>
                 <h1>Web application to manage her employees</h1>
                 <div class="button_wrapper">
-                    <button class="nanny">I’m a sitter</button>
-                    <button class="client">I’m a client</button>
+                    <button class="nanny">I’m a nanny</button>
+                    <button class=client>I’m a client</button>
                 </div>
             </header>
         </div>
