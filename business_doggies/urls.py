@@ -20,6 +20,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', include('business_doggies.core.urls')),
-    path('', include('business_doggies.clients.urls')),
-    path('', include('business_doggies.sitters.urls')),
 ]

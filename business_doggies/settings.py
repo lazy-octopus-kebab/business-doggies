@@ -42,8 +42,9 @@ INSTALLED_APPS = [
 
     # own
     'business_doggies.core',
-    'business_doggies.clients',
-    'business_doggies.sitters',
+    'business_doggies.accounts',
+    'business_doggies.offers',
+    'business_doggies.reviews',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'business_doggies.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / 'templates' ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,3 +130,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+# Substituting a custom User model
+AUTH_USER_MODEL = 'accounts.User'
