@@ -26,7 +26,7 @@ class ReviewRating(Review):
         (GOOD, 'Good'),
         (EXCELLENT, 'Excellent'),
     )
-    rating = models.IntegerField(
+    rating = models.PositiveIntegerField(
         choices=RATING,
         default=EXCELLENT,
     )

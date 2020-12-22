@@ -43,10 +43,10 @@ INSTALLED_APPS = [
     'guardian',
 
     # own
-    'business_doggies.core',
-    'business_doggies.accounts',
-    'business_doggies.offers',
-    'business_doggies.reviews',
+    'core',
+    'accounts',
+    'offers',
+    'reviews',
 ]
 
 MIDDLEWARE = [
