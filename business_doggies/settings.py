@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # 3rd parties
     'django_registration',
+    'guardian',
 
     # own
     'business_doggies.core',
@@ -110,6 +111,14 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+# Authentication backends
+#
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'guardian.backends.ObjectPermissionBackend',
 ]
 
 
