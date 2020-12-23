@@ -6,7 +6,7 @@
 
 {% block header %}
   <a href="#" class="nav-link">Find Sitter</a>
-  <a href="{% url 'accounts:logout' %}" class="nav-link">Log Out</a>
+  <a href="{% url 'accounts:logout' %}" class="nav-link logout-link">Log Out</a>
 {% endblock header %}
 
 {% block content %}
@@ -68,7 +68,7 @@
           <div>
             <div class="card pet-card shadow mx-2 my-4">
               <button type="button" name="button" class="btn close my-auto stretched-link" data-toggle="modal" data-target="#ad pet">
-                <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-plus" fill="black" xmlns="http://www.w3.org/2000/svg">
+                <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-plus" fill="white" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                 </svg>
               </button>
