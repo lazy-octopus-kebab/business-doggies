@@ -1,9 +1,10 @@
 from django.db import models
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class Offer(models.Model):
+
     client = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -43,9 +44,9 @@ class Offer(models.Model):
         help_text="Payment method",
     )
 
-    STATUS_PENDING = 0
-    STATUS_ACCEPTED = 1
-    STATUS_DECLINED = 2
+    STATUS_DECLINED = 0
+    STATUS_PENDING = 1
+    STATUS_ACCEPTED = 2
     STATUS_CHOICES = (
         (STATUS_PENDING, "Pending"),
         (STATUS_ACCEPTED, "Accepted"),
@@ -56,3 +57,10 @@ class Offer(models.Model):
         default=STATUS_PENDING,
         help_text="Status of the offer",
     )
+
+    def __str__(self):
+        return "{} - {}".format(self.client, self.sitter)
+
+    def is_finished(self):
+        now = timezone.now()
+        return now > self.offer_datetime

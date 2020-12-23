@@ -1,20 +1,26 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from .views import (
-    OfferSentListView,
-    OfferRecvListView,
+    OfferListView,
     MakeOfferView,
+)
+from .views import (
+    accept_offer_view,
+    decline_offer_view
 )
 
 
 app_name = 'offers'
 urlpatterns = [
     # ex: /offers/ (sent)
-    path('', OfferSentListView.as_view(), name='list'),
-
-    # ex: /offers/ (recv)
-    path('', OfferRecvListView.as_view(), name='list'),
+    path('', OfferListView.as_view(), name='list'),
 
     # ex: /offers/1/
-    path('<int:pk>/', MakeOfferView.as_view(), name='make'),
+    path('<int:sitter_id>/', MakeOfferView.as_view(), name='make'),
+
+    # ex: /offers/1/accept/
+    path('<int:sitter_id>/', accept_offer_view, name='accept'),
+
+    # ex: /offers/1/decline/
+    path('<int:sitter_id>/', decline_offer_view, name='decline'),
 ]
