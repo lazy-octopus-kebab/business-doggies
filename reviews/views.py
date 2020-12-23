@@ -21,24 +21,11 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Review
-    success_url = 'reviews/profile.html'
-    #<app>/<model>_<viewtype>.html
-
-    def test_func(self):
-        review = self.get_object()
-        if self.request.user == review.author:
-            return True
-        return False
-
-
 class ReviewRatingListView(ListView):
     model = ReviewRating
     #<app>/<model>_<viewtype>.html
     template_name = 'reviews/profile.html'
     context_object_name = 'reviews_rating'
-    
 
 class ReviewRatingCreateView(LoginRequiredMixin, CreateView):
     model = ReviewRating
@@ -48,16 +35,4 @@ class ReviewRatingCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-
-
-class ReviewRatingDeleteView(DeleteView):
-    model = ReviewRating
-    success_url = 'reviews/profile.html'
-    #<app>/<model>_<viewtype>.html
-
-    def test_func(self):
-        review = self.get_object()
-        if self.request.user == review.author:
-            return True
-        return False
 

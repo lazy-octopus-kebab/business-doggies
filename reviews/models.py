@@ -6,6 +6,15 @@ class Review(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
+        related_name="%(app_label)s_%(class)s_sent",
+        related_query_name="%(app_label)s_%(class)ss",
+    )
+
+    target = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="%(app_label)s_%(class)s_recv",
+        related_query_name="%(app_label)s_%(class)ss",
     )
 
     pub_date = models.DateTimeField(auto_now=True)
