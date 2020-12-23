@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd parties
-    'django_registration',
+    'phonenumber_field',
     'guardian',
 
     # own
