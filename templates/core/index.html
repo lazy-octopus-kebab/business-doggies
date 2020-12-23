@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+{% block link %}
+    <link rel="stylesheet" href="../static/css/header.css">
+{% endblock link %}
+
+{% block content %}
+    <div class="container">
+        <div class="content">
+            <h1>Web application to manage her employees</h1>
+            <div class="button_wrapper d-flex flex-sm-row flex-column justify-content-center mr-auto ml-auto align-items-center">
+                <a href="{% url 'accounts:client_singup' %}">
+                    <button class="mr-sm-4">
+                        I’m a client
+                    </button>
+                </a>
+                <a href="{% url 'accounts:sitter_singup' %}">
+                    <button class="ml-sm-4 mt-sm-0 mt-4">
+                        I’m a sitter
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="offer">
+        <div class="container">
+          <div class="offer_text">
+            <h2>How does it work?</h2>
+            <p>
+              Hire trustworthy sitters with confidence. Our platform offers the
+              easiest, most direct way to find sitter for you. Safe. Secure.
+              Privacy Assured. <a href="#">Start now!</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="best_sitters">
+        <div class="container">
+          <h2>Find a sitter now</h2>
+          <div>
+            <div class="sitters">
+              <div class="cards">
+                <div class="card-i">
+                  <img src="/img/1.png" alt="avatar" />
+                  <div class="content_card">
+                    <span>Valia Samoilova</span>
+                    <p>
+                      18 years old, student of BNTU, I love dogs very much, I
+                      have 2 hounds myself, I will be glad ...
+                    </p>
+                    <div class="under_content">
+                      <button>Hire</button>
+                      Rank: 5/5
+                    </div>
+                  </div>
+                </div>
+                <div class="card_2">
+                  <img src="/img/2.png" alt="avatar" />
+                  <div class="content_card">
+                    <span>Karina Busilik</span>
+                    <p>
+                      Hi) My name is Karina, I am 20 years old. I love animals
+                      very much and quickly find ...
+                    </p>
+                    <div class="under_content">
+                      <button>Hire</button>
+                      Rank: 4/5
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cards">
+                <div class="card-i">
+                  <img src="/img/3.png" alt="avatar" />
+                  <div class="content_card">
+                    <span>Anna Usmanova</span>
+                    <p>
+                      Dotes on our younger brothers, lives with a cat, teaches
+                      foreign languages to ...
+                    </p>
+                    <div class="under_content">
+                      <button>Hire</button>
+                      Rank: 5/5
+                    </div>
+                  </div>
+                </div>
+                <div class="card_2">
+                  <img src="/img/4.png" alt="avatar" />
+                  <div class="content_card">
+                    <span>Diana Kirsanova</span>
+                    <p>
+                      Rhythmic gymnastics coach Diana, having moved to Minsk,
+                      could not take her two favorite ...
+                    </p>
+                    <div class="under_content">
+                      <button>Hire</button>
+                      Rank: 5/5
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cards">
+                <div class="card-i">
+                  <img src="/img/5.png" alt="avatar" />
+                  <div class="content_card">
+                    <span>Kira Minches</span>
+                    <p>
+                      As a child, I dragged home all the wet noses that needed
+                      help. He considers walking ...
+                    </p>
+                    <div class="under_content">
+                      <button>Hire</button>
+                      Rank: 5/5
+                    </div>
+                  </div>
+                </div>
+                <div class="card_2">
+                  <img src="/img/6.png" alt="avatar" />
+                  <div class="content_card">
+                    <span>Nadia Johans</span>
+                    <p>
+                      I grew up with my dog. Now a student of the medical
+                      University - there is no pet, so ...
+                    </p>
+                    <div class="under_content">
+                      <button>Hire</button>
+                      Rank: 4/5
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cards">
+                <div class="card-i">
+                  <img src="/img/7.png" alt="avatar" />
+                  <div class="content_card">
+                    <span>Madalin Smit</span>
+                    <p>
+                      Since childhood, I wanted a dog, and when the dream came
+                      true, it became ...
+                    </p>
+                    <div class="under_content">
+                      <button>Hire</button>
+                      Rank: 5/5
+                    </div>
+                  </div>
+                </div>
+                <div class="card_2">
+                  <img src="/img/8.png" alt="avatar" />
+                  <div class="content_card">
+                    <span>Elehandra Miriam</span>
+                    <p>
+                      Hello, I am 22 years old, I can walk your dog, I have a
+                      lot of experience with different breeds ...
+                    </p>
+                    <div class="under_content">
+                      <button>Hire</button>
+                      Rank: 5/5
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="block4">
+        <div class="container">
+          <div class="webelieve">
+            <h2>What we believe</h2>
+            <p>
+              We developed this simple and accessible platform with the belief
+              that it will help to connect the kind and skillful hands of
+              sitters with the paws of our smaller brothers.
+              <a href="#">Try it now! </a>
+            </p>
+          </div>
+          <div class="counter">
+            <div>
+              <h3>41 000</h3>
+              <span>Registered clients</span>
+            </div>
+            <div>
+              <h3>56 000</h3>
+              <span>Registered sitters</span>
+            </div>
+            <div>
+              <h3>5 000</h3>
+              <span>Users online</span>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock content %}

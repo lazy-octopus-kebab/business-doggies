@@ -2,26 +2,29 @@
 
 {% load static %}
 
+{% block title %} - {{user.first_name}} {{user.last_name}}{% endblock title %}
 
-
-{% block title %}Profile - {{user.first_name}} {{user.last_name}}{% endblock title %}
+{% block header %}
+  <a href="#" class="nav-link">Find Sitter</a>
+  <a href="{% url 'accounts:logout' %}" class="nav-link">Log Out</a>
+{% endblock header %}
 
 {% block content %}
-  <hr />
-  <nav class="nav">
-    <ul>
-      <li><a href="#">Proposals</a></li>
-      <li><a href="#">Answers</a></li>
-    </ul>
-  </nav>
   <div class="content">
-    <div class="description">
+    <div class="description position-relative">
       <div class="d-flex">
-        <img class="avatar mt-5" src="{% static 'img/avatar.png' %}">
+        <div class="avatar align-self-center shadow position-relative" style="background-image: url({{ user.image.url }});">
+          <button type="button" class="btn close align-self-start stretched-link mt-2 mr-2" name="button" aria-label="Edit" data-toggle="modal" data-target="#editStore-{{ store.id }}">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+            </svg>
+          </button>
+        </div>
         <div class="description_wrapper ml-5">
           <div class="header_description_wrapper">
-            <p class="name">{{ user.first_name }} {{ user.last_name }}</p>
-            <button class="edit">Edit</button>
+            <div class="d-flex">
+              <p class="name">{{ user.first_name }} {{ user.last_name }}</p>
+            </div>
           </div>
           <p class="small">City</p>
           <p>Minsk</p>
@@ -30,19 +33,65 @@
           <p class="small">Phone Number</p>
           <p>{{ user.phone_number }}</p>
           <p class="sm">
-          <p class="small">Pets</p>
-          <p>
-            To be done
-          </p>
+        </div>
+        <button class="edit-client">Edit</button>
+      </div>
+      <div class="mt-5">
+        <p class="name">Pets</p>
+        <div class="d-flex flex-wrap">
+          {% for pet in user.pets_pets %}
+            <div>
+              <div class="card pet-card shadow mx-2 my-4">
+                {% if pet.image %}
+                  <div class="card-img-top pet-card-img" style="background-image: url({{ pet.image.url }});">
+                {% else %}
+                  <div class="card-img-top pet-card-img bg-primary">
+                {% endif %}
+                    <button type="button" class="btn close align-self-end stretched-link m-2" name="button" aria-label="Edit" data-toggle="modal" data-target="#edi pet-">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                    </button>
+                  </div>
+                <div class="d-flex flex-column card-body">
+                  <h5>{{ pet.name }}</h5>
+                  <div class="overflow-auto">
+                    {% if pet.description %}
+                      <p class="card-text text-muted">{{ pet.description }}</p>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+          <div>
+            <div class="card pet-card shadow mx-2 my-4">
+              <button type="button" name="button" class="btn close my-auto stretched-link" data-toggle="modal" data-target="#ad pet">
+                <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-plus" fill="black" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="reviews">
-        <p class="raiting">Average rating: 4.5 / 5</p>
+      <div class="reviews mt-5">
+        <p class="raiting">Comments from other Sitters</p>
         <div class="review">
           <div class="review_contant_wrapper">
             <div class="name_stars_wrapper">
               <p>Name Client</p>
-              <img src="{% static 'img/star.svg' %}" />
+            </div>
+            <div class="data">12.04.2020</div>
+          </div>
+          <p class="comment">Great gob. Exelent talent.</p>
+          <div class="review_background"></div>
+        </div>
+        <hr class="hr-client" style="width: 50%;" align="left">
+        <div class="review">
+          <div class="review_contant_wrapper">
+            <div class="name_stars_wrapper">
+              <p>Name Client</p>
             </div>
             <div class="data">12.04.2020</div>
           </div>

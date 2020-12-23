@@ -1,12 +1,24 @@
 {% extends 'base.html' %}
 
+{% block link %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styleform.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+{% endblock link %}
+
+{% block title %}Log In{% endblock title %}
+
+
+
 {% block content %}
-
-<form method="post">
-{% csrf_token %}
-    {{ form.as_p }}
-
-    <button type="submit">Log In</button>
-</form>
-
+    <div class="container">
+			
+		<div class="content">
+			<form method="post">
+            {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="Sign up">Log In</button>
+			</form>
+		</div>	
+	</div>
 {% endblock content %}
