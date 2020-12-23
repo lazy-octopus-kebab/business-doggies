@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+
+{% block title %}Profile - {{user.first_name}} {{user.last_name}}{% endblock title %}
+
+{% block content %}
+  <hr />
+  <nav class="nav">
+    <ul>
+      <li><a href="#">Proposals</a></li>
+      <li><a href="#">Answers</a></li>
+    </ul>
+  </nav>
+  <div class="content">
+    <div class="description">
+      <div class="d-flex">
+        <img class="avatar mt-5" src="{% static 'img/avatar.png' %}">
+        <div class="description_wrapper ml-5">
+          <div class="header_description_wrapper">
+            <p class="name">{{ user.first_name }} {{ user.last_name }}</p>
+            <button class="edit">Edit</button>
+          </div>
+          <p class="small">City</p>
+          <p>Minsk</p>
+          <p class="small">E-mail</p>
+          <p>{{ user.email }}</p>
+          <p class="small">Phone Number</p>
+          <p>{{ user.phone_number }}</p>
+          <p class="sm">
+          <p class="small">Pets</p>
+          <p>
+            To be done
+          </p>
+        </div>
+      </div>
+      <div class="reviews">
+        <p class="raiting">Average rating: 4.5 / 5</p>
+        <div class="review">
+          <div class="review_contant_wrapper">
+            <div class="name_stars_wrapper">
+              <p>Name Client</p>
+              <img src="{% static 'img/star.svg' %}" />
+            </div>
+            <div class="data">12.04.2020</div>
+          </div>
+          <p class="comment">Great gob. Exelent talent.</p>
+          <div class="review_background"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

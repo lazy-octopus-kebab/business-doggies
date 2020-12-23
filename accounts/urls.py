@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth.views import LogoutView
 
 from .views import (
     ClientSingUpView,
@@ -10,18 +11,21 @@ from .views import (
 
 app_name = 'accounts'
 urlpatterns = [
-    # ex: /accounts/login
+    # ex: /accounts/login/
     path('login/', UserLoginView.as_view(), name='login'),
 
-    # ex: /accounts/client_singup
+    # ex: /accounts/client_singup/
     path('client_singup/', ClientSingUpView.as_view(), name='client_singup'),
 
-    # ex: /accounts/sitter_singup
+    # ex: /accounts/sitter_singup/
     path('sitter_singup/', SitterSingUpView.as_view(), name='sitter_singup'),
 
-    # ex: /accounts/profile
+    # ex: /accounts/profile/
     path('profile/', UserProfileView.as_view(), name='profile'),
 
-    # ex: /accounts/profile/1
+    # ex: /accounts/profile/1/
     path('profile/<int:id>/', UserProfileView.as_view(), name='profile'),
+
+    # ex: /accounts/logout/
+    path('logout/', LogoutView.as_view(next_page=('accounts:login')), name='logout'),
 ]

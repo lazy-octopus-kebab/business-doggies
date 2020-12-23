@@ -2,7 +2,6 @@ from django.views.generic import FormView, View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.http import HttpResponseNotFound
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login
@@ -18,7 +17,7 @@ class ClientSingUpView(FormView):
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            redirect(self.success_url)
+            return redirect(self.success_url)
 
         form = self.form_class()
         context = {
@@ -29,7 +28,7 @@ class ClientSingUpView(FormView):
 
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            redirect(self.success_url)
+            return redirect(self.success_url)
 
         form = self.form_class(request.POST)
         if form.is_valid():
