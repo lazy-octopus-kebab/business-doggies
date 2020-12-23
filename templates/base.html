@@ -23,11 +23,16 @@
     <div class="wrapper">
         {% if user.is_authenticated %}
             <div class="calentito container">
-                <a href="{% url 'core:index' %}" class="nav-link logo">Logo</a>
-                <nav class="nav">
+                <a href="{% url 'core:index' %}" class="nav-link logo">Bussiness Doggies</a>
+                <nav class="nav nav-logo">
                     {% block header %}
                         <a href="#" class="nav-link">Find Sitter</a>
-                        <a href="{% url 'accounts:profile' %}" class="nav-link">{{ user.first_name }} {{ user.last_name }}</a>
+                        {% if user.is_client %}
+                            <a href="{% url 'accounts:profile' %}" class="nav-link" style="color: #FF710D;">{{ user.first_name }} {{ user.last_name }}</a>
+                        {% elif user.is_sitter %}
+                            <a href="{% url 'accounts:profile' %}" class="nav-link" style="color: #7764ED;">{{ user.first_name }} {{ user.last_name }}</a>
+                        {% endif %}
+                        
                     {% endblock header %}
                 </nav>
             </div>

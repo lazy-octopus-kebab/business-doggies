@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -46,14 +50,28 @@ body {
   .button_wrapper {
     margin-top: 80px;
   }
-  
+
+
   .button_wrapper button {
     padding: 18px 0px;
     width: 230px;
-    border: none;
     border-radius: 60px;
     font-size: 16px;
+    cursor: pointer;
+    border: none;
   }
+
+  .nanny {
+    color: white;
+    background: #FF710D;
+  }
+  
+  .client {
+    color: white;
+    border: none;
+    background:#7764ED;
+  }
+
   
   body {
     margin: 0px;
@@ -64,10 +82,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 40px auto 25px auto;
     font-size: 32px;
     position: relative;
     font-family: ConcertOne;
+    padding: 0;
   }
   
   .drop_menu{
@@ -119,9 +137,12 @@ body {
   }
   
   .nav {
-      font-size: 20px;
+      font-size: 16px;
   }
   
+  .nav-logo {
+    font-size: 24px;
+  }
   
   .nav li:last-child {
     margin-left: 30px;
@@ -129,10 +150,6 @@ body {
   
   .content {
     margin-top: 100px;
-  }
-
-  .review {
-    background: ;
   }
   
   .decscription_wrapper {
@@ -309,6 +326,12 @@ body {
       object-position: center;
   }
 
+  .avatar-sq {
+    width: 200px; /*container-width*/
+    height: 200px;
+    border-radius: 20px;
+}
+
   .pet-card {
     height: 250px;
     min-width: 200px;
@@ -353,8 +376,7 @@ body {
 }
 
 .logo {
-  
-  font-size: 32px;
+  font-size: 36px;
 }
 
 h2 { 
@@ -403,17 +425,11 @@ h3{
   margin-top: 100px;
 }
 
-.cards-i{
-  display: flex;
-  justify-content: space-between;
-  color: white;
-  margin: 50px 0px;
-}
-
 .card-i{
   width: 570px;
   height: 230px;
   background: #7764ED ;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
   border-radius: 25px;
 }
 
@@ -424,8 +440,8 @@ h3{
   font-size: 16px;
 }
 .card-i img{
-  padding-left: 20px;
-  padding-top: 17px;
+  margin-left: 15px;
+  margin-top: 15px;
 }
 .card-i p{
   width: 284px;
@@ -451,19 +467,25 @@ h3{
 .under_content button{
   font-size: 16px;
   font-family: montserrat;
+  border-radius: 60px;
+  background: #FF710D;
+  color: #ffffff;
+  border: none;
+  width: 84px;
+  height: 30px;
 }
 
 .card_2{
   width: 570px;
   height: 230px;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
   background: #7764ED ;
   border-radius: 25px;
-  margin-left: 60px;
 }
 
 .card_2 img{
-  padding-left: 20px;
-  padding-top: 17px;
+  margin-left: 15px;
+  margin-top: 15px;
 }
 .card_2 p{
   width: 284px;
