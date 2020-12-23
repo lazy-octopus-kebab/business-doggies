@@ -10,7 +10,7 @@
 	padding-top: 364px;
 }
 
-input[type="text"], input[type="Last name"], input[type="E-mail"], input[type="Password"] {
+form input {
 	width: 360px;
 	height: 31px;
 	font-size: 16px;

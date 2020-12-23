@@ -62,7 +62,7 @@ class OfferArchiveListView(PermissionRequiredMixin, LoginRequiredMixin, View):
 
 class MakeOfferView(PermissionRequiredMixin, LoginRequiredMixin, View):
     permission_required = 'offers.add_offer'
-    template_name = 'offers/make.html'
+    template_name = 'offers/form.html'
     form_class = MakeOfferForm
     success_url = reverse_lazy('list')
 

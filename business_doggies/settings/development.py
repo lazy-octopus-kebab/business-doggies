@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'accounts',
     'offers',
     'reviews',
+    'pets',
 ]
 
 MIDDLEWARE = [
@@ -150,3 +151,6 @@ AUTH_USER_MODEL = 'accounts.User'
 
 # django-guardian
 GUARDIAN_MONKEY_PATCH = False
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

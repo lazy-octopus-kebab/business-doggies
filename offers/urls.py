@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 
 from .views import (
     OfferListView,
@@ -12,7 +12,7 @@ from .views import (
 
 app_name = 'offers'
 urlpatterns = [
-    # ex: /offers/ (sent)
+    # ex: /offers/
     path('', OfferListView.as_view(), name='list'),
 
     # ex: /offers/1/

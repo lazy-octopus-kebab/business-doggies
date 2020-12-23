@@ -67,6 +67,8 @@ class UserProfileView(LoginRequiredMixin, View):
         else:
             user = request.user
 
+        
+
         context = {
             'user': user,
         }

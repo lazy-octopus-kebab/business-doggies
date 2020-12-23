@@ -2,13 +2,19 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Group, Permission
 
 from offers.models import Offer
+from pets.models import Pet
+from reviews.models import Review, ReviewRating
 
 GROUPS = {
     'Clients': {
         Offer: ['add', 'view'],
+        Pet: ['add', 'view'],
+        ReviewRating: ['add'],
     },
     'Sitters': {
         Offer: ['change', 'view'],
+        Pet: ['view'],
+        Review: ['add'],
     },
 }
 
