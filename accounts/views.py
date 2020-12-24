@@ -6,6 +6,8 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login
 
+from reviews.forms import ReviewForm
+
 from .forms import ClientSingUpForm, SitterSingUpForm, UserAuthenticationForm
 from .models import User, Sitter
 
@@ -59,10 +61,12 @@ class UserLoginView(LoginView):
 
 
 class UserProfileView(LoginRequiredMixin, View):
+    form_review_class = ReviewForm
     template_client_name = 'accounts/profile_client.html'
     template_sitter_name = 'accounts/profile_sitter.html'
 
     def get(self, request, *args, **kwargs):
+        form_review = self.form_review_class()
         if 'id' in kwargs:
             user = get_object_or_404(User, pk=kwargs['id'])
         else:
@@ -70,8 +74,9 @@ class UserProfileView(LoginRequiredMixin, View):
 
         context = {
             'profile': user,
+            'form_review': form_review,
         }
-
+        
         if user.is_client:
             return render(request, self.template_client_name, context)
         elif user.is_sitter:

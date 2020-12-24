@@ -34,6 +34,8 @@ class ClientSingUpForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['password1'].widget = forms.PasswordInput(attrs={'placeholder': "Password"})
         self.fields['password2'].widget = forms.PasswordInput(attrs={'placeholder': "Confirm password"})
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
 
     @transaction.atomic
     def save(self):
@@ -82,6 +84,8 @@ class SitterSingUpForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['password1'].widget = forms.PasswordInput(attrs={'placeholder': "Password"})
         self.fields['password2'].widget = forms.PasswordInput(attrs={'placeholder': "Confirm password"})
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
 
     @transaction.atomic
     def save(self):

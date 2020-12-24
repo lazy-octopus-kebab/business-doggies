@@ -9,12 +9,14 @@ GROUPS = {
     'Clients': {
         Offer: ['add', 'view'],
         Pet: ['add', 'view'],
+        Review: ['view'],
         ReviewRating: ['add'],
     },
     'Sitters': {
         Offer: ['change', 'view'],
         Pet: ['view'],
         Review: ['add'],
+        ReviewRating: ['view'],
     },
 }
 
