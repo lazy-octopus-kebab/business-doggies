@@ -576,3 +576,27 @@ padding-bottom: 200px;
 .logout-link:hover {
   color: #a73131;
 }
+
+.sitter-card {
+  min-width: 570px;
+  min-height: 230px;
+  border-radius: 25px !important;
+  background-color: #7764ED;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+
+.sitter-card:hover {
+  min-width: 570px;
+  min-height: 230px;
+  border-radius: 25px  !important;
+  background-color: #6a59d4;
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+}
+
+.sitter-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px; 
+  background-position: center;
+  background-size: cover;
+}
