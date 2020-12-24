@@ -4,7 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.urls import reverse_lazy
-from django.conf import settings
+from django.contrib.auth import get_user_model
 
 
 from guardian.shortcuts import assign_perm
@@ -69,7 +69,7 @@ class MakeOfferView(PermissionRequiredMixin, LoginRequiredMixin, View):
     success_url = reverse_lazy('list')
 
     def get(self, request, sitter_id, *args, **kwargs):
-        get_object_or_404(settings.AUTH_USER_MODEL, pk=sitter_id)
+        get_object_or_404(get_user_model(), pk=sitter_id)
         form = self.form_class()
         context = {
             'form': form,
@@ -83,7 +83,7 @@ class MakeOfferView(PermissionRequiredMixin, LoginRequiredMixin, View):
         if form.is_valid():
             offer = form.save(commit=False)
             offer.client = request.user
-            offer.sitter = get_object_or_404(settings.AUTH_USER_MODEL, pk=sitter_id)
+            offer.sitter = get_object_or_404(get_user_model(), pk=sitter_id)
             offer.save()
 
             # Apply permissions

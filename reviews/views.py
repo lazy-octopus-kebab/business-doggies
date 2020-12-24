@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import View
 from django.shortcuts import get_object_or_404, render, redirect
-from django.conf import settings
+from django.urls import reverse_lazy
 from django.http import HttpResponseForbidden
+from django.contrib.auth import get_user_model
 
 from .forms import ReviewForm, ReviewRatingForm
 from .models import Review, ReviewRating
@@ -13,7 +14,7 @@ class ReviewCreateView(PermissionRequiredMixin, LoginRequiredMixin, View):
     target_permission = 'review.view_review'
     template_name = 'offers/form.html'
     form_class = ReviewForm
-    success_url = 'profile/'
+    success_url = reverse_lazy("accounts:profile")
 
     def validate(self, author, target):
         if not target.has_perm(self.target_permission) or \
@@ -22,7 +23,7 @@ class ReviewCreateView(PermissionRequiredMixin, LoginRequiredMixin, View):
         return True
 
     def get(self, request, pk, *args, **kwargs):
-        target = get_object_or_404(settings.AUTH_USER_MODEL, pk=pk)
+        target = get_object_or_404(get_user_model(), pk=pk)
         if not self.validate(request.user, target):
             return HttpResponseForbidden(request)
         form = self.form_class()
@@ -37,8 +38,7 @@ class ReviewCreateView(PermissionRequiredMixin, LoginRequiredMixin, View):
         if form.is_valid():
             review = form.save(commit=False)
             review.author = request.user
-            review = form.cleaned_data
-            review.target = get_object_or_404(settings.AUTH_USER_MODEL, pk=pk)
+            review.target = get_object_or_404(get_user_model(), pk=pk)
 
             if not self.validate(request.user, review.target):
                 HttpResponseForbidden(request)
