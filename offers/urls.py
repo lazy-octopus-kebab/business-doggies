@@ -16,7 +16,7 @@ urlpatterns = [
     path('', OfferListView.as_view(), name='list'),
 
     # ex: /offers/answers
-    path('', OfferListV)
+    #path('', OfferListV),
 
     # ex: /offers/1/
     path('<int:sitter_id>/', MakeOfferView.as_view(), name='make'),
