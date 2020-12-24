@@ -11,7 +11,7 @@ services:
     build: .
     command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn --certfile=/etc/certs/localhost.crt --keyfile=/etc/certs/localhost.key business_doggies.wsgi:application --bind 0.0.0.0:443"
     environment:
-      - SECRET_KET="n35_u84qs^#qo%ehzcm3bc!dq0m^(%6fe$(ld1c%uqr90ku&*^""
+      - SECRET_KET='n35_u84qs^#qo%ehzcm3bc!dq0m^(%6fe$(ld1c%uqr90ku&*^"'
     volumes:
       - .:/app
       - ./config/nginx/certs/:/etc/certs
