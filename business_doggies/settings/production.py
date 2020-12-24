@@ -23,9 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = 'n35_u84qs^#qo%ehzcm3bc!dq0m^(%6fe$(ld1c%uqr90ku&*^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG = False
 
 
 # Application definition
@@ -47,6 +45,7 @@ INSTALLED_APPS = [
     'accounts',
     'offers',
     'reviews',
+    'pets',
 ]
 
 MIDDLEWARE = [
@@ -150,3 +149,12 @@ AUTH_USER_MODEL = 'accounts.User'
 
 # django-guardian
 GUARDIAN_MONKEY_PATCH = False
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+HOST_SCHEME                     = "https://"
+SECURE_PROXY_SSL_HEADER         = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT             = True
+SESSION_COOKIE_SECURE           = True
+CSRF_COOKIE_SECURE              = True
