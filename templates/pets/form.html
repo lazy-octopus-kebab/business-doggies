@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} - petinfo{% endblock title %}
+
+{% block content %}
+    <div class="wrapper">
+        <div class="container">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#petModal">
+                Запустить модальное окно
+            </button>
+        </div>
+    </div>
+
+    <!--Modal-->
+    <div class="modal custom pet fade" id="petModal" tabindex="-1" role="dialog" aria-labelledby="petModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-title pl-4" id="petModalLabel"><span class="m-auto">Information<br> about your pet</span></div>
+                <div class="modal-body">
+                    <form class="modal-form d-flex flex-column align-items-center">
+                        <input type="text" placeholder="Name">
+                        <input type="text" placeholder="Description">
+                        <div class="form-group">
+                            <label for="inputImage">Choose image</label>
+                            <input type="file" name="Image" multiple accept="image/*,image/jpeg">
+                        </div>
+                        <button class="send_btn mt-3" type="submit" data-dismiss="modal">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
