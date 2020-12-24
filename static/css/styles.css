@@ -8,7 +8,6 @@ html, body {
 
   #content {
     min-height: calc(100% - 72px);
-    padding-bottom: 71px;
   }
 
   #footer { 
