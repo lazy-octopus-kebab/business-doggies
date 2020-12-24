@@ -15,4 +15,4 @@ class Pet(models.Model):
     image = models.ImageField(upload_to='pets/', null=True)
 
     def __str__(self):
-        return self.name
+        return '{} - {}'.format(self.owner.email, self.name)

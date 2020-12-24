@@ -20,6 +20,10 @@ class Review(models.Model):
     pub_date = models.DateTimeField(auto_now=True)
     text = models.TextField()
 
+    class Meta:
+        verbose_name = "Review about Client"
+        verbose_name_plural = "Reviews about Clients"
+
 
 class ReviewRating(Review):
     VERYBAD = 1
@@ -38,3 +42,7 @@ class ReviewRating(Review):
         choices=RATING,
         default=EXCELLENT,
     )
+
+    class Meta:
+        verbose_name = "Review about Sitter"
+        verbose_name_plural = "Reviews about Sitters"

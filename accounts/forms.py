@@ -5,7 +5,7 @@ from django.db import transaction
 
 from phonenumber_field.formfields import PhoneNumberField
 
-from .models import User, Sitter
+from .models import User, Sitter, Client
 
 
 class ClientSingUpForm(UserCreationForm):
@@ -22,15 +22,19 @@ class ClientSingUpForm(UserCreationForm):
             'password2',
         )
 
-    def save(self, commit=True):
+    @transaction.atomic
+    def save(self):
         user = super().save(commit=False)
         user.is_client = True
 
-        if commit:
-            user.save()
+        user.save()
 
         group = Group.objects.get(name='Clients')
         user.groups.add(group)
+
+        client = Client.objects.create(user=user)
+
+        client.save()
     
         return user
 
@@ -66,5 +70,7 @@ class SitterSingUpForm(UserCreationForm):
 
         sitter = Sitter.objects.create(user=user)
         sitter.description = self.cleaned_data.get('description')
+        
+        sitter.save()
 
         return user

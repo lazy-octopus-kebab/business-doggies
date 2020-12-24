@@ -1,4 +1,4 @@
-from django.views.generic import FormView, View
+from django.views.generic import FormView, ListView, View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.http import HttpResponseNotFound
@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login
 
 from .forms import ClientSingUpForm, SitterSingUpForm
-from .models import User
+from .models import User, Sitter
 
 
 class ClientSingUpView(FormView):
@@ -81,3 +81,14 @@ class UserProfileView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         return render(request, 'accounts/profile.html')
+
+
+class SitterListView(LoginRequiredMixin, ListView):
+    model = User
+    context_object_name = 'sitters'
+    paginate_by = 20
+
+    def get_queryset(self):
+        queryset = self.model.objects.filter(is_sitter=True)
+        return queryset
+    

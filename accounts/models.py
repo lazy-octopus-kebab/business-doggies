@@ -5,7 +5,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 from guardian.mixins import GuardianUserMixin
 
 
-
 class UserManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
 
@@ -43,20 +42,36 @@ class UserManager(BaseUserManager):
 class User(GuardianUserMixin, AbstractUser):
     username = None
     email = models.EmailField("Email", unique=True)
-    phone_number = PhoneNumberField()
-    image = models.ImageField(upload_to='users/', default='users/default.png')
+    phone_number = PhoneNumberField("Phone number")
+    image = models.ImageField("Profile image", upload_to='users/', default='users/default.png')
 
     is_client = models.BooleanField(default=False)
     is_sitter = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone_number']
+    REQUIRED_FIELDS = []
+
+    objects = UserManager()
 
     def __str__(self):
         return self.email
 
 
+class Client(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+
 class Sitter(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
 
     description = models.TextField(null=True)
+
+    def __str__(self):
+        return self.user.email
