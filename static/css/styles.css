@@ -742,30 +742,30 @@ padding-bottom: 200px;
 
 
 /*---modal---*/
-.modal.custom .modal-dialog{
+/*.modal.custom.hire .modal-dialog{
   max-width: 1100px;
   border-radius: 15px;
   background-color: #EBEBEB;
 }
 
-.modal.custom .modal-content{
+.modal.custom.hire .modal-content{
   border-radius: 15px;
   background-color: #EBEBEB;
 }
 
-.modal.custom .modal-title{
+.modal.custom.hire .modal-title{
   font-family: ConcertOne;
   font-size: 51px;
   width: 490px;
 }
 
-.modal.custom img{
+.modal.custom.hire img{
   width: 200px;
   height: 196px;
   border-radius: 20px;
 }
 
-.modal.custom .send_btn{
+.modal.custom.hire .send_btn{
   width: 230px;
   height: 60px;
   background: #7764ED;  
@@ -776,12 +776,12 @@ padding-bottom: 200px;
   font-size: 16px;
 }
 
-.modal.custom .description{
+.modal.custom.hire .description{
   font-family: montserrat;
   font-size: 16px;
 }
 
-.modal.custom .modal-form input{
+.modal.custom.hire .modal-form input{
   font-family: montserrat;
   border: none;
   background-color: #EBEBEB;
@@ -789,6 +789,69 @@ padding-bottom: 200px;
   width: 400px;
 }
 
-.modal.custom .modal-form input:hover{
+.modal.custom.hire .modal-form input:hover{
+  border-bottom: 1px solid #7764ED;
+}*/
+
+
+.modal.custom.hire .modal-dialog, .modal.custom.pet .modal-dialog{
+  border-radius: 25px;
+  background-color: #EBEBEB;
+}
+.modal.custom.hire .modal-dialog{
+  max-width: 1100px;
+}
+
+.modal.custom.hire .modal-content, .modal.custom.pet .modal-content{
+  border-radius: 25px;
+  background-color: #EBEBEB;
+}
+
+.modal.custom.hire .modal-title, .modal.custom.pet .modal-title{
+  font-family: ConcertOne;
+  font-size: 51px;
+  width: 490px;
+}
+
+.modal.custom.pet .modal-title{
+  text-align: center;
+}
+
+.modal.custom.hire img{
+  width: 200px;
+  height: 196px;
+  border-radius: 20px;
+}
+
+.modal.custom.hire .send_btn, .modal.custom.pet .send_btn{
+  width: 230px;
+  height: 60px;
+  background: #7764ED;  
+  color: white;
+  border: none;
+  border-radius: 60px;
+  font-family: montserrat;
+  font-size: 16px;
+}
+
+.modal.custom.hire .description{
+  font-family: montserrat;
+  font-size: 16px;
+}
+
+.modal.custom.hire .modal-form input, .modal.custom.pet .modal-form input{
+  font-family: montserrat;
+  border: none;
+  background-color: #EBEBEB;
+  border-bottom: 1px solid black;
+  width: 400px;
+  margin-bottom: 15px;
+}
+
+.modal.custom.pet .form-group{
+  width: 400px;
+}
+
+.modal.custom.hire .modal-form input:hover, .modal.custom.pet .modal-form input:hover{
   border-bottom: 1px solid #7764ED;
 }
