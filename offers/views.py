@@ -16,48 +16,50 @@ from .forms import MakeOfferForm
 
 class OfferListView(PermissionRequiredMixin, LoginRequiredMixin, View):
     permission_required = 'offers.view_offer'
-    template_name = 'offers/list.html'
+    template_name = 'offers/offers.html'
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
         context = {
-            'user_type': None,
             'offers': None,
         }
         if user.has_perm('offers.add_offer'):
-            context['offers'] = Offer.objects.filter(client=self.request.user)
-            context['user_type'] = 'client'
+            context['offers'] = Offer.objects.filter(
+                client=self.request.user,
+                status=Offer.STATUS_PENDING
+            ).order_by('created_datetime')
+
         elif user.has_perm('offers.change_offer'):
-            context['offers'] = Offer.objects.filter(sitter=self.request.user)
-            context['user_type'] = 'sitter'
+            context['offers'] = Offer.objects.filter(
+                sitter=self.request.user,
+                status=Offer.STATUS_PENDING
+            ).order_by('created_datetime')
         
-        return render(self.request, 'offers/list.html', context)
+        return render(self.request, self.template_name, context)
 
 
-class OfferArchiveListView(PermissionRequiredMixin, LoginRequiredMixin, View):
+class OfferAnswersListView(PermissionRequiredMixin, LoginRequiredMixin, View):
     permission_required = 'offers.view_offer'
-    template_name = 'offers/archive.html'
+    template_name = 'offers/answers.html'
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
         context = {
-            'user_type': None,
             'offers': None,
         }
         if user.has_perm('offers.add_offer'):
             context['offers'] = Offer.objects.filter(
                 client=self.request.user,
                 status__in=[Offer.STATUS_ACCEPTED, Offer.STATUS_DECLINED]
-            )
-            context['user_type'] = 'client'
+            ).order_by('status')
+
         elif user.has_perm('offers.change_offer'):
             context['offers'] = Offer.objects.filter(
                 sitter=self.request.user,
                 status__in=[Offer.STATUS_ACCEPTED, Offer.STATUS_DECLINED]
-            )
-            context['user_type'] = 'sitter'
+            ).order_by('status')
         
-        return render(self.request, 'offers/list.html', context)
+        return render(self.request, self.template_name, context)
 
 
 class MakeOfferView(PermissionRequiredMixin, LoginRequiredMixin, View):

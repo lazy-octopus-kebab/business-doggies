@@ -18,11 +18,13 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('offers/', include('offers.urls')),
     path('reviews/', include('reviews.urls')),
+    path('pets/', include('pets.urls')),
     path('', include('core.urls')),
     
 ]

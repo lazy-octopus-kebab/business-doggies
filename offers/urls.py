@@ -2,6 +2,7 @@ from django.urls import path
 
 from .views import (
     OfferListView,
+    OfferAnswersListView,
     MakeOfferView,
 )
 from .views import (
@@ -13,10 +14,10 @@ from .views import (
 app_name = 'offers'
 urlpatterns = [
     # ex: /offers/
-    path('', OfferListView.as_view(), name='list'),
+    path('', OfferListView.as_view(), name='offers'),
 
     # ex: /offers/answers
-    #path('', OfferListV),
+    path('answers/', OfferAnswersListView.as_view(), name='answers'),
 
     # ex: /offers/1/
     path('<int:sitter_id>/', MakeOfferView.as_view(), name='make'),

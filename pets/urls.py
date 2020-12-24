@@ -4,7 +4,7 @@ from .views import (
     PetCreateView
 )
 
-app_name = 'offers'
+app_name = 'pets'
 urlpatterns = [
     # ex: /pets/create/
     path('create/', PetCreateView.as_view(), name='create'),

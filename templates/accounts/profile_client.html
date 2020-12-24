@@ -88,7 +88,7 @@
             {% if user == profile %}
               <div>
                 <div class="card pet-card shadow mx-2 my-4">
-                  <button type="button" name="button" class="btn close my-auto stretched-link edit-pet" data-toggle="modal" data-target="#ad pet">
+                  <button type="button" name="button" class="btn close my-auto stretched-link edit-pet" data-toggle="modal" data-target="#petModal">
                     <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-plus" fill="white" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                     </svg>
@@ -131,4 +131,27 @@
     </div>
   </div>
 </div>
+
+{% if user == profile %}
+  <!--Modal-->
+  <div class="modal custom pet fade" id="petModal" tabindex="-1" role="dialog" aria-labelledby="petModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-title pl-4" id="petModalLabel"><span class="m-auto">Information<br> about your pet</span></div>
+              <div class="modal-body">
+                  <form class="modal-form d-flex flex-column align-items-center" method="post">
+                  {% csrf_token %}
+                      {{ form_pet.name }}
+                      {{ form_pet.description }}
+                      <div class="form-group">
+                          <label for="inputImage">Choose image</label>
+                          {{ form_pet.image }}
+                      </div>
+                      <button class="send_btn pet mt-3" type="submit">Create</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+{% endif %}
 {% endblock content %}

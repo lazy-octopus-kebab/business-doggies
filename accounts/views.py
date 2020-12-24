@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login
 
 from reviews.forms import ReviewForm
+from pets.forms import PetForm
 
 from .forms import ClientSingUpForm, SitterSingUpForm, UserAuthenticationForm
 from .models import User, Sitter
@@ -62,11 +63,15 @@ class UserLoginView(LoginView):
 
 class UserProfileView(LoginRequiredMixin, View):
     form_review_class = ReviewForm
+    form_pet_class = PetForm
+
     template_client_name = 'accounts/profile_client.html'
     template_sitter_name = 'accounts/profile_sitter.html'
 
     def get(self, request, *args, **kwargs):
         form_review = self.form_review_class()
+        form_pet = self.form_pet_class()
+        
         if 'id' in kwargs:
             user = get_object_or_404(User, pk=kwargs['id'])
         else:
@@ -75,6 +80,7 @@ class UserProfileView(LoginRequiredMixin, View):
         context = {
             'profile': user,
             'form_review': form_review,
+            'form_pet': form_pet,
         }
         
         if user.is_client:

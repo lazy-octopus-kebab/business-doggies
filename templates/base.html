@@ -16,8 +16,6 @@
     <link rel="manifest" href="{% static 'img/favicons/site.webmanifest' %}">
 
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
-    <script type="text/javascript" scr="{% static 'js/send_data.js' %}"></script>
     
     <title>Business Doggies{% block title %}{% endblock title %}</title>
 </head>
@@ -54,13 +52,13 @@
 
             {% if user.is_client %}
                 <nav class="nav container">
-                    <a href="#" class="nav-link">Proposals</a>
-                    <a href="#" class="nav-link">Answers</a>
+                    <a href="{% url 'offers:offers' %}" class="nav-link">Proposals</a>
+                    <a href="{% url 'offers:answers' %}" class="nav-link">Answers</a>
                 </nav>
             {% elif user.is_sitter %}
                 <nav class="nav container">
-                    <a href="#" class="nav-link">Offers</a>
-                    <a href="#" class="nav-link">Answered</a>
+                    <a href="{% url 'offers:offers' %}" class="nav-link">Offers</a>
+                    <a href="{% url 'offers:answers' %}" class="nav-link">Answered</a>
                 </nav>
             {% endif %}
         {% else %}

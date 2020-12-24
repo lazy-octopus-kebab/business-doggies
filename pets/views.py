@@ -13,7 +13,7 @@ class PetCreateView(PermissionRequiredMixin, LoginRequiredMixin, View):
     permission_required = 'pets.add_pet'
     template_name = 'pets/form.html'
     form_class = PetForm
-    success_url = reverse_lazy('list')
+    success_url = reverse_lazy('accounts:profile')
 
     def get(self, request, *args, **kwargs):
         form = self.form_class()
