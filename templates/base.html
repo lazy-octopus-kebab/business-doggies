@@ -26,16 +26,21 @@
                 <a href="{% url 'core:index' %}" class="nav-link logo">Bussiness Doggies</a>
                 <nav class="nav nav-logo">
                     {% block header %}
-                        <a href="#" class="nav-link">Find Sitter</a>
+                        
                         {% if user.is_client %}
+                            <a href="#" class="nav-link">Find Sitter</a>
                             <a href="{% url 'accounts:profile' %}" class="nav-link client-link">{{ user.first_name }} {{ user.last_name }}</a>
                         {% elif user.is_sitter %}
+                            <a href="#" class="nav-link">Find Sitter</a>
                             <a href="{% url 'accounts:profile' %}" class="nav-link sitter-link">{{ user.first_name }} {{ user.last_name }}</a>
+                        {% elif user.is_superuser %}
+                            <a href="{% url 'admin:index' %}" class="nav-link logout-link">Admin</a>
                         {% endif %}
                         
                     {% endblock header %}
                 </nav>
             </div>
+
             {% if user.is_client %}
                 <hr class="hr-client">
                 <nav class="nav container">
@@ -48,6 +53,8 @@
                     <a href="#" class="nav-link">Offers</a>
                     <a href="#" class="nav-link">Answered</a>
                 </nav>
+            {% elif user.is_superuser %}
+                <hr class="hr-admin">
             {% endif %}
         {% else %}
             <div class="calentito container">
@@ -61,6 +68,8 @@
         {% block content %}{% endblock content %}
     {% if user.is_client %}
         <hr class="hr-client m-0">
+    {% elif user.is_superuser %}
+        <hr class="hr-admin m-0">
     {% else %}
         <hr class="hr-sitter m-0">
     {% endif %}

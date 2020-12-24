@@ -44,6 +44,7 @@ body {
   @media (min-width: 1200px) {
     .content h1 {
       font-size: 105px;
+      margin: 240px auto 0px auto;
     }
   }
   
@@ -276,6 +277,12 @@ body {
     background: #FFB800;
     height: 1px;
     border: none;
+}
+
+.hr-admin{
+  background: #DD4242;
+  height: 1px;
+  border: none;
 }
   
   .comment{
