@@ -1,24 +1,39 @@
 {% extends 'base.html' %}
 
-{% block link %}
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styleform.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
-{% endblock link %}
-
-{% block title %}Log In{% endblock title %}
-
-
+{% block title %}- Log In{% endblock title %}
 
 {% block content %}
-    <div class="container">
-			
-		<div class="content">
-			<form method="post">
+    <div class="wrapper">
+        <div class="container">
+            <div><h1 class="login title">We are glad<br/> to see you again</h1></div>
+            <form class="login form" method="post" novalidate>
             {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="Sign up">Log In</button>
-			</form>
-		</div>	
-	</div>
+                <div class="col-12 p-0 {% if form.username.errors %}error_field{% endif %}">
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="text-danger small mb-0 pb-0 mt-2">
+                            {{ form.username.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-12 p-0 {% if form.password.errors %}error_field{% endif %}">
+                    {{ form.password }}
+                    {% if form.password.errors %}
+                        <div class="text-danger small mb-0 pb-0 mt-2">
+                            {{ form.password.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                {% if form.non_field_errors %}
+                    <div class="text-danger small mb-0 pb-0 mt-4">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                <button type="submit" class="login login_btn">Log In</button>
+            </form>
+            <div class="login underbutton position-relative">
+                <span>Don't have an account?</span><a href="{% url 'core:index' %}" class="login singup_btn stretched-link"> Sign Up</a>
+            </div>      
+        </div>
+    </div>
 {% endblock content %}

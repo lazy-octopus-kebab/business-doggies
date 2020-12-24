@@ -6,7 +6,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login
 
-from .forms import ClientSingUpForm, SitterSingUpForm
+from .forms import ClientSingUpForm, SitterSingUpForm, UserAuthenticationForm
 from .models import User, Sitter
 
 
@@ -54,6 +54,7 @@ class SitterSingUpView(ClientSingUpView):
 class UserLoginView(LoginView):
     template_name = 'accounts/login.html'
     success_url = reverse_lazy('accounts:profile')
+    authentication_form = UserAuthenticationForm
     redirect_authenticated_user=True
 
 
@@ -76,9 +77,6 @@ class UserProfileView(LoginRequiredMixin, View):
         elif user.is_sitter:
             return render(request, self.template_sitter_name, context)
         return HttpResponseNotFound(request)
-
-    def post(self, request, *args, **kwargs):
-        return render(request, 'accounts/profile.html')
 
 
 class SitterListView(LoginRequiredMixin, ListView):

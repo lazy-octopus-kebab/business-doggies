@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import Group
 from django import forms
 from django.db import transaction
@@ -99,3 +99,8 @@ class SitterSingUpForm(UserCreationForm):
         sitter.save()
 
         return user
+
+
+class UserAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Password'}))

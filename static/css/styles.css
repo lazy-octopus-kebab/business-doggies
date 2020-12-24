@@ -664,13 +664,25 @@ padding-bottom: 200px;
 }
 
 .signup_sitter.signup_btn{
-  background: #FFB800;
+  background: #FF710D;
 }
 .signup_client.signup_btn{
   background: #7764ED;
 }
+
+.signup_sitter.signup_btn:hover{
+  background: #bf550a;
+}
+.signup_client.signup_btn:hover{
+  background: #6051bf;
+}
+
 .login.login_btn{
   background: #7764ED;
+}
+
+.login.login_btn:hover{
+  background: #FF710D;
 }
 
 .signup.underbutton, .login.underbutton{
@@ -680,15 +692,19 @@ padding-bottom: 200px;
 .signup_sitter.login_btn{
   color: #FF710D;
 }
-.signup_client.login_btn, .login.signup_btn{
+.signup_client.singup_btn, .login.signup_btn{
   color: #7764ED;
 }
 
 .signup_sitter.login_btn:hover{
   color: #bf550a;
 }
-.signup_client.login_btn:hover{
+.signup_client.singup_btn:hover, .login.signup_btn:hover{
   color: #6a59d4;
+}
+
+.errorlist {
+  margin: 0;
 }
 
 .signup_sitter.form input, .signup_client.form input, .login.form input{
@@ -696,7 +712,7 @@ padding-bottom: 200px;
   border: none;
   border-bottom: 1px solid black;
   padding-bottom: 10px;
-  margin-bottom: 25px;
+  margin-top: 25px;
   width: 400px;
 }
 
@@ -714,4 +730,12 @@ padding-bottom: 200px;
 }
 .signup_client.form input:hover, .login.form input:hover{
   border-bottom: 1px solid #7764ED;
+}
+
+.error_field input{
+  border-bottom: 2px solid #DD4242 !important;
+}
+
+.error_field input:hover{
+  border-bottom: 2px solid #a73131 !important;
 }
