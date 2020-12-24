@@ -23,7 +23,7 @@
     <div id="content" class="wrapper">
         {% if user.is_authenticated %}
             <div class="calentito container">
-                <a href="{% url 'core:index' %}" class="nav-link logo">Bussiness Doggies</a>
+                <a href="{% url 'core:index' %}" class="nav-link logo">Business Doggies</a>
                 <nav class="nav nav-logo">
                     {% block header %}
                         
@@ -63,7 +63,7 @@
             {% endif %}
         {% else %}
             <div class="calentito container">
-                <a href="{% url 'core:index' %}" class="nav-link">Logo</a>
+                <a href="{% url 'core:index' %}" class="nav-link">Business Doggies</a>
                 <nav class="nav">
                     <a href="{% url 'accounts:login' %}" class="nav-link">Log In</a>
                 </nav>
@@ -83,7 +83,7 @@
             <hr class="hr-sitter m-0">
         {% endif %}
         <div id="footer" class="container d-flex align-items-center justify-content-between">
-            <span>Developed by the team <a href="#"> IT Котики </a></span>
+            <span>Developed by the team <a href="https://github.com/ShviXXL/business-doggies"> IT-Котики </a></span>
             <span>Copyright &copy; Business Doggies 2020</span>
         </div>
     </div>

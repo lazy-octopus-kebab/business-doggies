@@ -682,10 +682,17 @@ padding-bottom: 200px;
 }
 
 .signup_sitter.login_btn{
-  color: #FFB800;
+  color: #FF710D;
 }
 .signup_client.login_btn{
   color: #7764ED;
+}
+
+.signup_sitter.login_btn:hover{
+  color: #bf550a;
+}
+.signup_client.login_btn:hover{
+  color: #6a59d4;
 }
 
 .signup_sitter.form input, .signup_client.form input{
@@ -697,8 +704,17 @@ padding-bottom: 200px;
   width: 400px;
 }
 
+.signup_sitter.form textarea, .signup_client.form textarea{
+  font-family: montserrat;
+  border: none;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  margin-bottom: 25px;
+  width: 400px;
+}
+
 .signup_sitter.form input:hover{
-  border-bottom: 1px solid #FFB800;
+  border-bottom: 1px solid #FF710D;
 }
 .signup_client.form input:hover{
   border-bottom: 1px solid #7764ED;
