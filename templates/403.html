@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} - 404{% endblock title %}
+
+{% block content %}
+    <div class="content-404">
+        <h1>403</h1>
+        <span>Oops, you don't have access to this page</span>
+        <p> 
+            Please be patient, our specialists 
+            are working on this problem
+        </p>
+        <a href="{% url 'core:index' %}"><button>Return</button></a>
+    </div>
+{% endblock content %}
+
+            
