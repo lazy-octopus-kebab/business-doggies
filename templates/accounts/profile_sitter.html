@@ -64,27 +64,37 @@
       <div></div>
       <div class="reviews mt-5">
         <p class="name mb-4">Reviews about {{ profile.get_short_name }}</p>
-        <div class="review">
+        {% if user != profile and not user.is_sitter %}
+        <div class="mb-5">
+          <form id="add-review" method="post" action="{% url 'reviews:createrating' profile.pk %}">
+          {% csrf_token %}
+            <div class="d-flex align-items-center">
+                {{ form_review.text }}
+                <div>
+                  {{ form_review.rating }}
+                  <button id="submit-review" val="{{ profile.pk }}" type="submit" class="edit-sitter btn">Send</button>
+                </div>
+            </div>
+          </form>
+        </div>
+          <script>
+            $("#add-review").on("submit", addReviewRating);
+            $('#add-review textarea').autoResize();
+          </script>
+        {% endif %}
+        {% for review in profile.reviews_reviewrating_recv.all %}
+          {% if forloop.counter > 1 %}<hr class="hr-client" style="width: 50%;" align="left">{% endif %}
+          <div class="review">
           <div class="review_contant_wrapper">
             <div class="name_stars_wrapper">
-              <p>Name Client</p>
+              <p><a href="{% url 'accounts:profile' review.author.pk %}">{{ review.author.get_full_name }}</a> - {{review.rating}}</p>
             </div>
-            <div class="data">12.04.2020</div>
+            <div class="data">{{ review.pub_date }}</div>
           </div>
-          <p class="comment">Great gob. Exelent talent.</p>
+          <p class="comment">{{ review.text }}</p>
           <div class="review_background"></div>
         </div>
-        <hr class="hr-client" style="width: 50%;" align="left">
-        <div class="review">
-          <div class="review_contant_wrapper">
-            <div class="name_stars_wrapper">
-              <p>Name Client</p>
-            </div>
-            <div class="data">12.04.2020</div>
-          </div>
-          <p class="comment">Great gob. Exelent talent.</p>
-          <div class="review_background"></div>
-        </div>
+        {% endfor %}
       </div>
     </div>
   </div>

@@ -24,6 +24,9 @@ class Review(models.Model):
         verbose_name = "Review about Client"
         verbose_name_plural = "Reviews about Clients"
 
+    def __str__(self):
+        return self.text if len(self.text) <= 20 else self.text[:17] + "..."
+
 
 class ReviewRating(Review):
     VERYBAD = 1
@@ -31,7 +34,7 @@ class ReviewRating(Review):
     OKAY = 3
     GOOD = 4
     EXCELLENT = 5
-    RATING = (
+    RATING_CHOICES = (
         (VERYBAD, 'Very bad'),
         (BAD, 'Bad'),
         (OKAY, 'Okay'),
@@ -39,7 +42,7 @@ class ReviewRating(Review):
         (EXCELLENT, 'Excellent'),
     )
     rating = models.PositiveIntegerField(
-        choices=RATING,
+        choices=RATING_CHOICES,
         default=EXCELLENT,
     )
 

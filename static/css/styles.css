@@ -738,3 +738,12 @@ padding-bottom: 200px;
 .error_field input:hover{
   border-bottom: 2px solid #a73131 !important;
 }
+
+#add-review textarea {
+  resize: none;
+  overflow: auto;
+  border: none;
+  width: 50%;
+  height: 100px;
+  border-bottom: 1px solid black;
+}
