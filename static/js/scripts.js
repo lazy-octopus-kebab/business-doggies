@@ -38,13 +38,11 @@ function send_offer() {
     console.log("hi");
     $.ajax({
       type: "POST",
-      url: '/offer/create/5',
+      url: '/offers/create/' + $(this).val(),
       data: $('.modal-form').serialize(),
       success: function (data) {
-        $(location).attr('href','/sitters/');
       },
       error: function (data) {
-        console.log("Offer has not created!");
       }
     });
 }
@@ -55,10 +53,8 @@ function pet_description() {
       url: '/pets/create',
       data: $('.modal-form').serialize(),
       success: function (data) {
-        $(location).attr('href','/sitters/');
       },
       error: function (data) {
-        console.log("Pet has not created!");
       }
     });
 }

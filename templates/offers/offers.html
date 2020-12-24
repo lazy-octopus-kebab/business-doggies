@@ -7,7 +7,6 @@
         <div class="review">
           <div class="review_contant_wrapper">
             <div class="name_stars_wrapper">
-            <p>{{ offer.comment }}</p>
             {% if user.is_client %}
               <p class="small"><a href="{% url 'accounts:profile' offer.sitter.pk %}">{{ offer.sitter.get_full_name }}</a></p>
             {% else %}

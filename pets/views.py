@@ -33,8 +33,6 @@ class PetCreateView(PermissionRequiredMixin, LoginRequiredMixin, View):
             # Apply permissions
             assign_perm('offers.change_pet', pet.owner, pet)
 
-            return redirect(self.success_url)
-
         context = {
             'form': form,
         }

@@ -4,6 +4,7 @@ from .models import Offer
 
 
 class MakeOfferForm(forms.ModelForm):
+    offer_datetime = forms.DateTimeInput(attrs={'placeholder': "Date and time"})
 
     class Meta:
         model = Offer
@@ -15,7 +16,6 @@ class MakeOfferForm(forms.ModelForm):
         }
         widgets = {
             'client_address': forms.TextInput(attrs={'placeholder': "Your address"}),
-            'offer_datetime': forms.DateTimeField(),
             'comment': forms.TextInput(attrs={'placeholder': "Comment"}),
         }
     

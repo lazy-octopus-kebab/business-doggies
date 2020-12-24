@@ -108,16 +108,15 @@
               <div class="modal-body">
                   <div class="row">
                       <div class="col-6">
-                          <div class="row">
+                          <div class="row avatar">
                           </div>
                       </div>
                       <div class="col-6 p-3">
-                          <form class="modal-form h-100 d-flex flex-column justify-content-between">
-                              {{ form.offer_datetime }}
-                              {{ form.payment_method }}
-                              {{ form.client_address }}
-                              {{ form.comment }}
-                              <button class="send_btn mt-3" type="submit" data-dismiss="modal">Send</button>
+                          <form class="modal-form h-100 d-flex flex-column justify-content-between" method="post">
+                          {% csrf_token %}
+                              {{ form_offer.as_p }}
+                              <button class="send_btn mt-3" value="{{ profile.pk }}" type="submit" data-dismiss="modal">Send</button>
+                              <script>$('.send_btn.hire').on('click', send_offer);</script>
                           </form>
                       </div>
                   </div>
