@@ -43,7 +43,7 @@ class User(GuardianUserMixin, AbstractUser):
     username = None
     email = models.EmailField("Email", unique=True)
     phone_number = PhoneNumberField("Phone number")
-    image = models.ImageField("Profile image", upload_to='users/', default='users/default.png')
+    image = models.ImageField("Profile image", upload_to='users/', null=True)
 
     is_client = models.BooleanField(default=False)
     is_sitter = models.BooleanField(default=False)

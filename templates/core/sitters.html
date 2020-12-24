@@ -3,21 +3,20 @@
 {% block title %}- Sitters{% endblock title %}
 
 {% block content %}
-    <div class="container">
+    <div class="container mt-5 d-flex flex-wrap justify-content-center">
         {% for sitter in sitters %}
-            <div class="d-inline-flex p-4 rounded-lg text-light position-relative mx-auto mb-4 sitter-card">
+            <div class="p-4 rounded-lg text-light position-relative mb-4 mx-2 sitter-card">
                 <div class="media align-items-center">
                     <div class="sitter-img mr-3 shadow" style="background-image: url({{ sitter.image.url }});"></div>
                     <div class="media-body mr-3">
-                        <h1 class="display-3 font-weight-bold">{{ sitter.first_name }} {{ sitter.last_name }}</h1>
+                        <h1 class="display-3 font-weight-bold name">{{ sitter.first_name }} {{ sitter.last_name }}</h1>
                         {% if sitter.sitter.description %}
                             <p class="lead">{{ sitter.sitter.description }}</p>
                         {% endif %}
-                        <button class="hire-btn stretched-link btn">Hire</button>
+                        <a class="hire-btn stretched-link" href={% url 'accounts:profile' sitter.pk %}></a>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
-        
 {% endblock content %}

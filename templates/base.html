@@ -28,10 +28,10 @@
                     {% block header %}
                         
                         {% if user.is_client %}
-                            <a href="#" class="nav-link">Find Sitter</a>
+                            <a href="{% url 'core:sitters' %}" class="nav-link">Find Sitter</a>
                             <a href="{% url 'accounts:profile' %}" class="nav-link client-link">{{ user.first_name }} {{ user.last_name }}</a>
                         {% elif user.is_sitter %}
-                            <a href="#" class="nav-link">Find Sitter</a>
+                            <a href="{% url 'core:sitters' %}" class="nav-link">Find Sitter</a>
                             <a href="{% url 'accounts:profile' %}" class="nav-link sitter-link">{{ user.first_name }} {{ user.last_name }}</a>
                         {% elif user.is_superuser %}
                             <a href="{% url 'admin:index' %}" class="nav-link logout-link">Admin</a>
@@ -40,21 +40,26 @@
                     {% endblock header %}
                 </nav>
             </div>
+            {% block hr %}
+                {% if user.is_client %}
+                    <hr class="hr-client">
+                {% elif user.is_sitter %}
+                    <hr class="hr-sitter">
+                {% elif user.is_superuser %}
+                    <hr class="hr-admin">
+                {% endif %}
+            {% endblock hr %}
 
             {% if user.is_client %}
-                <hr class="hr-client">
                 <nav class="nav container">
                     <a href="#" class="nav-link">Proposals</a>
                     <a href="#" class="nav-link">Answers</a>
                 </nav>
             {% elif user.is_sitter %}
-                <hr class="hr-sitter">
                 <nav class="nav container">
                     <a href="#" class="nav-link">Offers</a>
                     <a href="#" class="nav-link">Answered</a>
                 </nav>
-            {% elif user.is_superuser %}
-                <hr class="hr-admin">
             {% endif %}
         {% else %}
             <div class="calentito container">

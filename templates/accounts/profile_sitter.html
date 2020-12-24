@@ -1,79 +1,92 @@
 {% extends 'base.html' %}
 
-{% block link %}
-    <link rel="stylesheet" href="../static/css/profile.css" />
-{% endblock link %}
+{% load static %}
 
-{% block title %}Profile - {{user.first_name}} {{user.last_name}}{% endblock title %}
+{% block title %} - {{ profile.get_full_name }}{% endblock title %}
+
+{% block header %}
+  {% if user == profile %}
+    <a href="{% url 'core:sitters' %}" class="nav-link">Find Sitter</a>
+    <a href="{% url 'accounts:logout' %}" class="nav-link logout-link">Log Out</a>
+  {% else %}
+    {% if user.is_client %}
+        <a href="{% url 'core:sitters' %}" class="nav-link">Find Sitter</a>
+        <a href="{% url 'accounts:profile' %}" class="nav-link client-link">{{ user.first_name }} {{ user.last_name }}</a>
+    {% elif user.is_sitter %}
+        <a href="{% url 'core:sitters' %}" class="nav-link">Find Sitter</a>
+        <a href="{% url 'accounts:profile' %}" class="nav-link sitter-link">{{ user.first_name }} {{ user.last_name }}</a>
+    {% elif user.is_superuser %}
+        <a href="{% url 'admin:index' %}" class="nav-link logout-link">Admin</a>
+    {% endif %}
+  {% endif %}
+{% endblock header %}
+
+{% block hr %}
+  <hr class="hr-sitter">
+{% endblock hr %}
 
 {% block content %}
-  <div class="wrapper">
-    <div class="calentito">
-      <div>Logo</div>
-      <p class="menu">Valia Samoilova</p>
-      <div class="drop_menu">
-        <ul>
-          <li><a href="#">Account</a></li>
-          <li><a href="#">Log out</a></li>
-        </ul>
-      </div>
-    </div>
-    <hr />
-    <nav class="nav">
-      <ul>
-        <li><a href="#">Available</a></li>
-        <li><a href="#">In review</a></li>
-      </ul>
-    </nav>
-    <div class="content">
-      <div class="description">
-        <img src="../static/img/avatar.png" />
-        <div class="decscription_wrapper">
+<div class="container mt-5">
+  <div>
+    <div class="description position-relative">
+      <div class="d-flex">
+        <div class="avatar align-self-center shadow position-relative" style="background-image: url({{ profile.image.url }});">
+          {% if user == profile %}
+            <button type="button" class="btn close align-self-start stretched-link mt-2 mr-2" name="button" aria-label="Edit" data-toggle="modal" data-target="#editStore-{{ store.id }}">
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+              </svg>
+            </button>
+          {% endif %}
+        </div>
+        <div class="description_wrapper ml-5">
           <div class="header_description_wrapper">
-            <p class="name">Valia Samoilova</p>
-            <button class="edit">Edit</button>
+            <div class="d-flex align-items-center">
+              <p class="name-sitter">{{ profile.get_full_name }}</p>
+              {% if user == profile %}
+                <button class="edit-sitter btn">Edit</button>
+              {% elif user.is_client %}
+                <button class="edit-sitter btn">Hire</button>
+              {% endif %}
+            </div>
           </div>
           <p class="small">City</p>
           <p>Minsk</p>
           <p class="small">E-mail</p>
-          <p>Valiasamoilova@gmail.com</p>
-          <p class="small">Description</p>
-          <p>
-            18 years old, student of BNTU, I love dogs very much, I have 2
-            hounds myself, I will be glad if you choose me for this job, I
-            love dogs very much and quickly find contact with them. I take a
-            very responsible approach to walking, after a walk I can wash my
-            paws and feed the dog. There was an experience. I can walk with
-            any size of dog.
-          </p>
+          <p>{{ profile.email }}</p>
+          <p class="small">Phone Number</p>
+          <p>{{ profile.phone_number }}</p>
+          <p class="sm">Description</p>
+          <p>{{ profile.sitter.description }}</p>
         </div>
-        <div class="reviews">
-          <p class="raiting">Average rating: 4.5 / 5</p>
-          <div class="review">
-            <div class="review_contant_wrapper">
-              <div class="name_stars_wrapper">
-                <p>Name Client</p>
-                <img src="../static/img/star.svg" />
-              </div>
-              <div class="data">12.04.2020</div>
+      </div>
+      
+      <div></div>
+      <div class="reviews mt-5">
+        <p class="name mb-4">Reviews about {{ profile.get_short_name }}</p>
+        <div class="review">
+          <div class="review_contant_wrapper">
+            <div class="name_stars_wrapper">
+              <p>Name Client</p>
             </div>
-            <p class="comment">Great gob. Exelent talent.</p>
-            <div class="review_background"></div>
+            <div class="data">12.04.2020</div>
           </div>
+          <p class="comment">Great gob. Exelent talent.</p>
+          <div class="review_background"></div>
         </div>
-        <div class="reviews">
-          <div class="review">
-            <div class="review_contant_wrapper">
-              <div class="name_stars_wrapper">
-                <p>Name Client</p>
-                <img src="../static/img/star.svg" />
-              </div>
-              <div class="data">12.04.2020</div>
+        <hr class="hr-client" style="width: 50%;" align="left">
+        <div class="review">
+          <div class="review_contant_wrapper">
+            <div class="name_stars_wrapper">
+              <p>Name Client</p>
             </div>
-            <p class="comment">Great gob. Exelent talent.</p>
+            <div class="data">12.04.2020</div>
           </div>
+          <p class="comment">Great gob. Exelent talent.</p>
+          <div class="review_background"></div>
         </div>
       </div>
     </div>
   </div>
+</div>
 {% endblock content %}

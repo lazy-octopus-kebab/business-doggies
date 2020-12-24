@@ -63,14 +63,12 @@ class UserProfileView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         if 'id' in kwargs:
-            user = get_object_or_404(User, kwargs['id'])
+            user = get_object_or_404(User, pk=kwargs['id'])
         else:
             user = request.user
 
-        
-
         context = {
-            'user': user,
+            'profile': user,
         }
 
         if user.is_client:
@@ -86,7 +84,7 @@ class UserProfileView(LoginRequiredMixin, View):
 class SitterListView(LoginRequiredMixin, ListView):
     model = User
     context_object_name = 'sitters'
-    paginate_by = 20
+    paginate_by = 5
 
     def get_queryset(self):
         queryset = self.model.objects.filter(is_sitter=True)
