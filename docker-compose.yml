@@ -9,22 +9,12 @@ services:
       - POSTGRES_PASSWORD=postgres
   web:
     build: .
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn --certfile=/etc/certs/localhost.crt --keyfile=/etc/certs/localhost.key business_doggies.wsgi:application --bind 0.0.0.0:443"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     env_file:
       - ./config/web/web-variables.env
     volumes:
       - .:/app
-      - ./config/nginx/certs/:/etc/certs
-    expose:
-      - "443"
+    ports:
+      - "8000:8000"
     depends_on:
       - db
-  nginx:
-    image: nginx:latest
-    ports:
-      - "443:443"
-      - "80:80"
-    volumes:
-      - .config/nginx/:/etc/nginx/conf.d
-    depends_on:
-      - web

@@ -3,4 +3,3 @@ psycopg2-binary>=2.8
 django-guardian
 django-phonenumber-field[phonenumbers]
 Pillow
-gunicorn
