@@ -643,16 +643,16 @@ padding-bottom: 200px;
 }
 /*---sign-up--sitter----*/
 
-.signup.title{
-  margin-top: 110px;
-  width: 470px;
+.signup.title, .login.title{
+  margin-top: 50px;
+  width: 490px;
   font-family: ConcertOne;
   font-size: 66px;
   margin-bottom: 80px;
   line-height: 0.8;
 }
 
-.signup_sitter.signup_btn, .signup_client.signup_btn{
+.signup_sitter.signup_btn, .signup_client.signup_btn, .login.login_btn{
   width: 230px;
   height: 60px;
   color: white;
@@ -664,27 +664,23 @@ padding-bottom: 200px;
 }
 
 .signup_sitter.signup_btn{
-  background: #FF710D;
+  background: #FFB800;
 }
 .signup_client.signup_btn{
   background: #7764ED;
 }
-
-.signup_sitter.signup_btn:hover {
-  background: #bf550a;
-}
-.signup_client.signup_btn:hover {
-  background: #6a59d4;
+.login.login_btn{
+  background: #7764ED;
 }
 
-.signup.underbutton{
-  margin-top: 25px;
+.signup.underbutton, .login.underbutton{
+  margin: 25px 0px;
 }
 
 .signup_sitter.login_btn{
   color: #FF710D;
 }
-.signup_client.login_btn{
+.signup_client.login_btn, .login.signup_btn{
   color: #7764ED;
 }
 
@@ -695,7 +691,7 @@ padding-bottom: 200px;
   color: #6a59d4;
 }
 
-.signup_sitter.form input, .signup_client.form input{
+.signup_sitter.form input, .signup_client.form input, .login.form input{
   font-family: montserrat;
   border: none;
   border-bottom: 1px solid black;
@@ -716,6 +712,6 @@ padding-bottom: 200px;
 .signup_sitter.form input:hover{
   border-bottom: 1px solid #FF710D;
 }
-.signup_client.form input:hover{
+.signup_client.form input:hover, .login.form input:hover{
   border-bottom: 1px solid #7764ED;
 }
