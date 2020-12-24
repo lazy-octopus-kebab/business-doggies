@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    {% for offer in offers %}
+        {% if forloop.counter > 1 %}<hr class="{% if user.is_client %}hr-client{% else %}hr-sitter{% endif %} " style="width: 50%;" align="left">{% endif %}
+        <div class="review">
+          <div class="review_contant_wrapper">
+            <div class="name_stars_wrapper">
+            {% if user.is_client %}
+              <p><a href="{% url 'accounts:profile' offer.sitter.pk %}">{{ offer.sitter.get_full_name }}</a></p>
+            {% else %}
+                <p><a href="{% url 'accounts:profile' offer.client.pk %}">{{ offer.client.get_full_name }}</a></p>
+            {% endif %}
+            </div>
+            {% if user.is_client %}
+            <div class="text-muted">Pending</div>
+            {% else %}
+            <div>
+                 <a class="btn-accept btn btn-success" href="{% url 'offers:accept' offer.pk %}">Accept</a>
+              <a class="btn-decline btn btn-outline-danger" href="{% url 'offers:decline' offer.pk %}">Decline</a>
+            </div>
+            {% endif %}
+          </div>
+          <p class="comment">{{ offer.client_address }}, {{ offer.offer_datetime }}. Payment by {{ offer.get_payment_method_display }}</p>
+          <div class="review_background"></div>
+        </div>
+    {% endfor %}
+{% endblock content %}
