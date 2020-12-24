@@ -26,7 +26,7 @@ class PetCreateView(PermissionRequiredMixin, LoginRequiredMixin, View):
         form = self.form_class(request.POST)
 
         if form.is_valid():
-            pet = form.cleaned_data
+            pet = form.save(commit=False)
             pet.owner = request.user
             pet.save()
 

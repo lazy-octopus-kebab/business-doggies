@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login
 
 from reviews.forms import ReviewForm
 from pets.forms import PetForm
+from offers.forms import MakeOfferForm
 
 from .forms import ClientSingUpForm, SitterSingUpForm, UserAuthenticationForm
 from .models import User, Sitter
@@ -64,6 +65,7 @@ class UserLoginView(LoginView):
 class UserProfileView(LoginRequiredMixin, View):
     form_review_class = ReviewForm
     form_pet_class = PetForm
+    from_offer_class = MakeOfferForm
 
     template_client_name = 'accounts/profile_client.html'
     template_sitter_name = 'accounts/profile_sitter.html'
@@ -71,6 +73,7 @@ class UserProfileView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         form_review = self.form_review_class()
         form_pet = self.form_pet_class()
+        form_offer = self.from_offer_class()
         
         if 'id' in kwargs:
             user = get_object_or_404(User, pk=kwargs['id'])
@@ -81,6 +84,7 @@ class UserProfileView(LoginRequiredMixin, View):
             'profile': user,
             'form_review': form_review,
             'form_pet': form_pet,
+            'form_offer': form_offer,
         }
         
         if user.is_client:

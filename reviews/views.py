@@ -35,8 +35,9 @@ class ReviewCreateView(PermissionRequiredMixin, LoginRequiredMixin, View):
         form = self.form_class(request.POST)
 
         if form.is_valid():
-            review = form.cleaned_data
+            review = form.save(commit=False)
             review.author = request.user
+            review = form.cleaned_data
             review.target = get_object_or_404(settings.AUTH_USER_MODEL, pk=pk)
 
             if not self.validate(request.user, review.target):
@@ -44,7 +45,7 @@ class ReviewCreateView(PermissionRequiredMixin, LoginRequiredMixin, View):
 
             review.save()
 
-            return redirect(self.success_url + pk)
+            return redirect(self.success_url)
 
         context = {
             'form': form,

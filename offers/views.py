@@ -81,7 +81,7 @@ class MakeOfferView(PermissionRequiredMixin, LoginRequiredMixin, View):
         form = self.form_class(request.POST)
 
         if form.is_valid():
-            offer = form.cleaned_data
+            offer = form.save(commit=False)
             offer.client = request.user
             offer.sitter = get_object_or_404(settings.AUTH_USER_MODEL, pk=sitter_id)
             offer.save()
@@ -102,19 +102,19 @@ class MakeOfferView(PermissionRequiredMixin, LoginRequiredMixin, View):
 @permission_required_or_403('offers.change_offer')
 def accept_offer_view(request, offer_id):
     offer = get_object_or_404(Offer, id=offer_id)
-    if request.user.has_perm('offers.change_offer', offer):
+    if not request.user.pk == offer.sitter.pk:
         raise PermissionDenied
     offer.status = Offer.STATUS_ACCEPTED
     offer.save()
-    redirect(reverse_lazy('list'))
+    return redirect(reverse_lazy('offers:offers'))
 
 
 @login_required
-@permission_required('offers.change_offer')
+@permission_required_or_403('offers.change_offer')
 def decline_offer_view(request, offer_id):
     offer = get_object_or_404(Offer, id=offer_id)
-    if request.user.has_perm('offers.change_offer', offer):
+    if not request.user.pk == offer.sitter.pk:
         raise PermissionDenied
     offer.status = Offer.STATUS_DECLINED
     offer.save()
-    redirect(reverse_lazy('list'))
+    return redirect(reverse_lazy('offers:offers'))

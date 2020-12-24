@@ -32,7 +32,7 @@
       <div class="d-flex">
         <div class="avatar align-self-center shadow position-relative" style="background-image: url({{ profile.image.url }});">
           {% if user == profile %}
-            <button type="button" class="btn close align-self-start stretched-link mt-2 mr-2" name="button" aria-label="Edit" data-toggle="modal" data-target="#editStore-{{ store.id }}">
+            <button type="button" class="btn close align-self-start stretched-link mt-2 mr-2" name="button" aria-label="Edit" data-toggle="modal" data-target="">
               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
               </svg>
@@ -46,7 +46,7 @@
               {% if user == profile %}
                 <button class="edit-sitter btn">Edit</button>
               {% elif user.is_client %}
-                <button class="edit-sitter btn">Hire</button>
+                <button class="edit-sitter btn" data-toggle="modal" data-target="#hireModal">Hire</button>
               {% endif %}
             </div>
           </div>
@@ -104,26 +104,19 @@
 <div class="modal custom hire fade" id="hireModal" tabindex="-1" role="dialog" aria-labelledby="hireModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
           <div class="modal-content">
-              <div class="modal-title pl-4" id="hireModalLabel">Hire name</div>
+              <div class="modal-title pl-4" id="hireModalLabel">Hire {{ profile.get_full_name }}</div>
               <div class="modal-body">
                   <div class="row">
                       <div class="col-6">
                           <div class="row">
-                              <div class="col-6 p-4 d-flex align-items-center">
-                                  <img src="#">
-                              </div>
-                              <div class="description col-6 p-3 d-flex flex-column justify-content-between">
-                                  <div>Name: Maria Leshovec</div>
-                                  <div>Maria is a gog lover to the core and is ready to devote all her free time to the four-legged...</div>
-                                  <div>+375 (29) 745-32-34</div>
-                                  <div>Rank: *****</div>
-                              </div>
                           </div>
                       </div>
                       <div class="col-6 p-3">
                           <form class="modal-form h-100 d-flex flex-column justify-content-between">
-                              <input type="datetime-local" placeholder="Date">
-                              <input type="text" placeholder="Comment">
+                              {{ form.offer_datetime }}
+                              {{ form.payment_method }}
+                              {{ form.client_address }}
+                              {{ form.comment }}
                               <button class="send_btn mt-3" type="submit" data-dismiss="modal">Send</button>
                           </form>
                       </div>

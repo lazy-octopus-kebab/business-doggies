@@ -58,6 +58,11 @@ class Offer(models.Model):
         help_text="Status of the offer",
     )
 
+    comment = models.CharField(
+        max_length=512,
+        null=True
+    )
+
     def __str__(self):
         return "{} - {}".format(self.client, self.sitter)
 

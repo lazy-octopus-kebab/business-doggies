@@ -23,8 +23,8 @@ urlpatterns = [
     path('<int:sitter_id>/', MakeOfferView.as_view(), name='make'),
 
     # ex: /offers/1/accept/
-    path('<int:sitter_id>/', accept_offer_view, name='accept'),
+    path('accept/<int:offer_id>/', accept_offer_view, name='accept'),
 
     # ex: /offers/1/decline/
-    path('<int:sitter_id>/', decline_offer_view, name='decline'),
+    path('decline/<int:offer_id>/', decline_offer_view, name='decline'),
 ]
