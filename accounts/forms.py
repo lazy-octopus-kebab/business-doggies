@@ -106,5 +106,5 @@ class SitterSingUpForm(UserCreationForm):
 
 
 class UserAuthenticationForm(AuthenticationForm):
-    username = forms.CharField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
+    username = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
