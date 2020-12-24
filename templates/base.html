@@ -20,7 +20,7 @@
     <title>Business Doggies{% block title %}{% endblock title %}</title>
 </head>
 <body>
-    <div class="wrapper">
+    <div id="content" class="wrapper">
         {% if user.is_authenticated %}
             <div class="calentito container">
                 <a href="{% url 'core:index' %}" class="nav-link logo">Bussiness Doggies</a>
@@ -71,21 +71,21 @@
         {% endif %}
             
         {% block content %}{% endblock content %}
-    {% if user.is_client %}
-        <hr class="hr-client m-0">
-    {% elif user.is_superuser %}
-        <hr class="hr-admin m-0">
-    {% else %}
-        <hr class="hr-sitter m-0">
-    {% endif %}
-        <div>
-        <div class="container">
-          <div class="footer">
+    
+    
+    </div>
+    <div>
+        {% if user.is_client %}
+            <hr class="hr-client m-0">
+        {% elif user.is_superuser %}
+            <hr class="hr-admin m-0">
+        {% else %}
+            <hr class="hr-sitter m-0">
+        {% endif %}
+        <div id="footer" class="container d-flex align-items-center justify-content-between">
             <span>Developed by the team <a href="#"> IT Котики </a></span>
             <span>Copyright &copy; Business Doggies 2020</span>
-          </div>
         </div>
-      </div>
     </div>
     
 

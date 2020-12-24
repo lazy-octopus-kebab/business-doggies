@@ -1,15 +1,18 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import Group
-from django.forms import CharField, Textarea
+from django import forms
 from django.db import transaction
 
 from phonenumber_field.formfields import PhoneNumberField
+from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 
 from .models import User, Sitter, Client
 
 
 class ClientSingUpForm(UserCreationForm):
-    phone_number = PhoneNumberField()
+    phone_number = PhoneNumberField(
+        widget=forms.TextInput(attrs={'placeholder': "Phone number"}),
+    )
 
     class Meta:
         model = User
@@ -21,6 +24,16 @@ class ClientSingUpForm(UserCreationForm):
             'password1',
             'password2',
         )
+        widgets = {
+            'first_name': forms.TextInput(attrs={'placeholder': "First name"}),
+            'last_name': forms.TextInput(attrs={'placeholder': "Last name"}),
+            'email': forms.TextInput(attrs={'placeholder': "Email"}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].widget = forms.PasswordInput(attrs={'placeholder': "Password"})
+        self.fields['password2'].widget = forms.PasswordInput(attrs={'placeholder': "Confirm password"})
 
     @transaction.atomic
     def save(self):
@@ -40,9 +53,11 @@ class ClientSingUpForm(UserCreationForm):
 
 
 class SitterSingUpForm(UserCreationForm):
-    phone_number = PhoneNumberField()
-    description = CharField(
-        widget=Textarea,
+    phone_number = PhoneNumberField(
+        widget=forms.TextInput(attrs={'placeholder': "Phone number"}),
+    )
+    description = forms.CharField(
+        widget=forms.Textarea(attrs={'placeholder': "A little about yourself and your experience"}),
         help_text="Information about you and your experience.",
     )
 
@@ -52,11 +67,21 @@ class SitterSingUpForm(UserCreationForm):
             'first_name',
             'last_name',
             'email',
+            'phone_number',
             'password1',
             'password2',
-            'phone_number',
             'description',
         )
+        widgets = {
+            'first_name': forms.TextInput(attrs={'placeholder': "First name"}),
+            'last_name': forms.TextInput(attrs={'placeholder': "Last name"}),
+            'email': forms.EmailInput(attrs={'placeholder': "Email"}),
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].widget = forms.PasswordInput(attrs={'placeholder': "Password"})
+        self.fields['password2'].widget = forms.PasswordInput(attrs={'placeholder': "Confirm password"})
 
     @transaction.atomic
     def save(self):

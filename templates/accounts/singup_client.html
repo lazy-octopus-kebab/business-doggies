@@ -1,12 +1,40 @@
 {% extends 'base.html' %}
 
+{% block title %}- Sing Up{% endblock title %}
+
 {% block content %}
-
-<form method="post">
-{% csrf_token %}
-    {{ form.as_p }}
-
-    <button type="submit">Sing Up</button>
-</form>
-
+    <div class="container mb-5">
+        <div><h1 class="signup title">Welcome<br/> to our platform</h1></div>
+        <form class="signup_client form" method="post">
+        {% csrf_token %}
+            <div class="row">
+                <div class="col flex-column">
+                    <div>
+                        {{ form.email }}
+                    </div>
+                    <div>
+                        {{ form.password1 }}
+                    </div>
+                    <div>
+                        {{ form.password2 }}
+                    </div>
+                </div>
+                <div class="col flex-column">
+                    <div>
+                        {{ form.phone_number }}
+                    </div>
+                    <div>
+                        {{ form.first_name }}
+                    </div>
+                    <div>
+                        {{ form.last_name }}
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-light signup_client signup_btn">Sign up</button>
+        </form> 
+        <div class="signup underbutton position-relative">
+            <span>Do you have an account?</span><a href="{% url 'accounts:login' %}" class="signup_client login_btn stretched-link"> Log in</a>
+        </div>   
+    </div>
 {% endblock content %}
