@@ -576,3 +576,59 @@ padding-bottom: 200px;
 .logout-link:hover {
   color: #a73131;
 }
+
+/*---sign-up--sitter----*/
+
+.signup.title{
+  margin-top: 110px;
+  width: 470px;
+  font-family: ConcertOne;
+  font-size: 66px;
+  margin-bottom: 80px;
+  line-height: 0.8;
+}
+
+.signup_sitter.signup_btn, .signup_client.signup_btn{
+  width: 230px;
+  height: 60px;
+  color: white;
+  border: none;
+  border-radius: 60px;
+  margin-top: 50px;
+  font-family: montserrat;
+  font-size: 16px;
+}
+
+.signup_sitter.signup_btn{
+  background: #FFB800;
+}
+.signup_client.signup_btn{
+  background: #7764ED;
+}
+
+.signup.underbutton{
+  margin-top: 25px;
+}
+
+.signup_sitter.login_btn{
+  color: #FFB800;
+}
+.signup_client.login_btn{
+  color: #7764ED;
+}
+
+.signup_sitter.form input, .signup_client.form input{
+  font-family: montserrat;
+  border: none;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  margin-bottom: 25px;
+  width: 400px;
+}
+
+.signup_sitter.form input:hover{
+  border-bottom: 1px solid #FFB800;
+}
+.signup_client.form input:hover{
+  border-bottom: 1px solid #7764ED;
+}
