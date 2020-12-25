@@ -12,7 +12,7 @@ services:
     expose:
       - 8000
     env_file:
-      - .config/web/.env.prod
+      - .config/web/env.prod
     depends_on:
       - db
   db:
@@ -20,14 +20,16 @@ services:
     volumes:
       - postgres_data:/var/lib/postresql/data/
     env_file:
-      - .config/db/.env.prod
+      - .config/db/env.prod
   nginx:
     build: .nginx
+    restart: always
     volumes:
       - static:/home/app/web/static
       - media:/home/app/web/media
     ports:
-      - 443:80
+      - 443:443
+      - 80:80
     depends_on:
       - web
     
