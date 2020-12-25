@@ -14,3 +14,51 @@ The Sitter can add info for her experience and any information about her. The Si
 The Admin can view everything and manage both Sitters and Clients. On the log in you can create an account as a client or register as a Sitter. 
 
 There may be other features, Development Team can add anything they think will help an Owner to reach their business goal.
+
+## Using our Project
+
+To clone our project:
+
+```bash
+git clone https://github.com/ShviXXL/business-doggies.git
+```
+
+### Development
+
+```bash
+# Run containers
+docker-compose -f docker-compose.dev.yml up --build
+
+# Run migrations
+docker-compose -f docker-compose.dev.yml exec web python manage.py migrate
+```
+
+If you need to make migrations:
+```bash
+docker-compose -f docker-compose.dev.yml exec web python manage.py makemigrations
+```
+
+Also you may want to clear out the database:
+```bash
+docker-compose -f docker-compose.dev.yml exec web python manage.py flush
+```
+
+To bring the containers down:
+```bash
+docker-compose -f docker-compose.dev.yml down -v
+```
+
+### Production
+
+```bash
+# Run containers
+docker-compose -f docker-compose.prod.yml up -d --build
+
+# Run migrations
+docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
+```
+
+To bring the containers down:
+```bash
+docker-compose -f docker-compose.prod.yml down -v
+```
