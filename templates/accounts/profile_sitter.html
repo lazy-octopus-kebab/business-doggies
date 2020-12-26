@@ -30,7 +30,7 @@
   <div>
     <div class="description position-relative">
       <div class="d-flex">
-        <div class="avatar align-self-center shadow position-relative" style="background-image: url({{ profile.image.url }});">
+        <div class="avatar align-self-center shadow position-relative" style="background-image: url({% if profile.image %}{{ profile.image.url }}{% else %}{% static 'img/default-avatar.png' %}{% endif %});">
           {% if user == profile %}
             <button type="button" class="btn close align-self-start stretched-link mt-2 mr-2" name="button" aria-label="Edit" data-toggle="modal" data-target="">
               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="white" xmlns="http://www.w3.org/2000/svg">

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}- Sing Up{% endblock title %}
+{% block title %}- Sign Up{% endblock title %}
 
 {% block content %}
         <div class="container">
@@ -69,10 +69,10 @@
             <div class="invalid-feedback">
                 {{ form.errors }}
             </div>
-            <button type="submit" class="btn btn-light signup_sitter signup_btn">Sign up</button>
+            <button type="submit" class="signup_sitter signup_btn">Sign Up</button>
         </form> 
             <div class="signup underbutton position-relative">
-            <span>Do you have an account?</span><a href="{% url 'accounts:login' %}" class="signup_client login_btn stretched-link"> Log in</a>
+            <span>Do you have an account? </span><a href="{% url 'accounts:login' %}" class="signup_client login_btn stretched-link">Log in</a>
         </div>  
         </div>
 {% endblock content %}
