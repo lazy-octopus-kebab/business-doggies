@@ -9,7 +9,7 @@ from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 from .models import User, Sitter, Client
 
 
-class ClientSingUpForm(UserCreationForm):
+class ClientSignUpForm(UserCreationForm):
     phone_number = PhoneNumberField(
         widget=forms.TextInput(attrs={'placeholder': "Phone number"}),
     )
@@ -54,13 +54,9 @@ class ClientSingUpForm(UserCreationForm):
         return user
 
 
-class SitterSingUpForm(UserCreationForm):
+class SitterSignUpForm(UserCreationForm):
     phone_number = PhoneNumberField(
         widget=forms.TextInput(attrs={'placeholder': "Phone number"}),
-    )
-    description = forms.CharField(
-        widget=forms.Textarea(attrs={'placeholder': "A little about yourself and your experience"}),
-        help_text="Information about you and your experience.",
     )
 
     class Meta:
@@ -72,7 +68,6 @@ class SitterSingUpForm(UserCreationForm):
             'phone_number',
             'password1',
             'password2',
-            'description',
         )
         widgets = {
             'first_name': forms.TextInput(attrs={'placeholder': "First name"}),
@@ -98,7 +93,6 @@ class SitterSingUpForm(UserCreationForm):
         user.groups.add(group)
 
         sitter = Sitter.objects.create(user=user)
-        sitter.description = self.cleaned_data.get('description')
         
         sitter.save()
 

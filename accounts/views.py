@@ -10,13 +10,13 @@ from reviews.forms import ReviewForm
 from pets.forms import PetForm
 from offers.forms import MakeOfferForm
 
-from .forms import ClientSingUpForm, SitterSingUpForm, UserAuthenticationForm
-from .models import User, Sitter
+from .forms import ClientSignUpForm, SitterSignUpForm, UserAuthenticationForm
+from .models import User
 
 
-class ClientSingUpView(FormView):
-    template_name = 'accounts/singup_client.html'
-    form_class = ClientSingUpForm
+class ClientSignUpView(FormView):
+    template_name = 'accounts/signup_client.html'
+    form_class = ClientSignUpForm
     success_url = reverse_lazy('accounts:login')
 
     def get(self, request, *args, **kwargs):
@@ -31,9 +31,6 @@ class ClientSingUpView(FormView):
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect(self.success_url)
-
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
@@ -50,9 +47,9 @@ class ClientSingUpView(FormView):
         return render(request, self.template_name, context)
 
 
-class SitterSingUpView(ClientSingUpView):
-    template_name = 'accounts/singup_sitter.html'
-    form_class = SitterSingUpForm
+class SitterSignUpView(ClientSignUpView):
+    template_name = 'accounts/signup_sitter.html'
+    form_class = SitterSignUpForm
 
 
 class UserLoginView(LoginView):
@@ -86,11 +83,12 @@ class UserProfileView(LoginRequiredMixin, View):
             'form_pet': form_pet,
             'form_offer': form_offer,
         }
-        
+
         if user.is_client:
             return render(request, self.template_client_name, context)
         elif user.is_sitter:
             return render(request, self.template_sitter_name, context)
+        
         return HttpResponseNotFound(request)
 
 
@@ -102,4 +100,3 @@ class SitterListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         queryset = self.model.objects.filter(is_sitter=True)
         return queryset
-    
