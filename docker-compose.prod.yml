@@ -7,8 +7,8 @@ services:
       dockerfile: Dockerfile.prod
     command: gunicorn business_doggies.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - static:/home/app/web/static
-      - media:/home/app/web/media
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
     expose:
       - 8000
     env_file:
@@ -25,8 +25,8 @@ services:
     build: .nginx
     restart: always
     volumes:
-      - static:/home/app/web/static
-      - media:/home/app/web/media
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
     ports:
       - 443:443
       - 80:80
@@ -35,5 +35,5 @@ services:
     
 volumes:
   postgres_data:
-  static:
-  media:
+  static_volume:
+  media_volume:

@@ -29,16 +29,14 @@ git clone https://github.com/ShviXXL/business-doggies.git
 # Run containers
 docker-compose -f docker-compose.dev.yml up --build
 
-# Run migrations
+# To make migrations use this
+docker-compose -f docker-compose.dev.yml exec web python manage.py makemigrations
+
+# To run migrations use this
 docker-compose -f docker-compose.dev.yml exec web python manage.py migrate
 ```
 
-If you need to make migrations:
-```bash
-docker-compose -f docker-compose.dev.yml exec web python manage.py makemigrations
-```
-
-Also you may want to clear out the database:
+If you may want to clear out the database:
 ```bash
 docker-compose -f docker-compose.dev.yml exec web python manage.py flush
 ```
@@ -54,8 +52,14 @@ docker-compose -f docker-compose.dev.yml down -v
 # Run containers
 docker-compose -f docker-compose.prod.yml up -d --build
 
-# Run migrations
+# To make migrations use this command
 docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
+
+# To run migrations use this command
+docker-compose -f docker-compose.dev.yml exec web python manage.py makemigrations
+
+# To collect static files use this command:
+docker-compose -f docker-compose.dev.yml exec web python manage.py collectstatic
 ```
 
 To bring the containers down:
