@@ -7,7 +7,7 @@ RUN apk update && apk add \
     postgresql-dev gcc python3-dev musl-dev \
     zlib-dev jpeg-dev libpq
 
-RUN mkdir -p /usr/app
+RUN mkdir -p /usr/src/app
 
 WORKDIR /usr/src/app
 
