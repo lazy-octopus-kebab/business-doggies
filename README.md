@@ -92,10 +92,20 @@ docker-compose -f docker-compose.prod.yml down
   
   ```bash
   # Development
-  docker-compose -f docker-compose.dev.yml exec web python manage.py create_groups
+  docker-compose -f docker-compose.dev.yml exec web python manage.py creategroups
 
   # Production
-  docker-compose -f docker-compose.prod.yml exec web python manage.py create_groups
+  docker-compose -f docker-compose.prod.yml exec web python manage.py creategroups
+  ```
+
+- **Create superuser.** To create an administrator account to access the admin dashboard:
+
+  ```bash
+  # Development
+  docker-compose -f docker-compose.dev.yml exec web python manage.py createsuperuser
+
+  # Production
+  docker-compose -f docker-compose.prod.yml exec web python manage.py createsuperuser
   ```
 
 - **Flush.** To remove all data from database:
