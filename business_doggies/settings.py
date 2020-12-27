@@ -44,8 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd parties
-    'phonenumber_field',
     'guardian',
+    'widget_tweaks',
+    'phonenumber_field',
 
     # own
     'core',
