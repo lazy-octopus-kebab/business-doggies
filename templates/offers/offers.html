@@ -17,7 +17,7 @@
             <div class="text-muted">Pending</div>
             {% else %}
             <div>
-                 <a class="btn-accept btn btn-success" href="{% url 'offers:accept' offer.pk %}">Accept</a>
+              <a class="btn-accept btn btn-success" href="{% url 'offers:accept' offer.pk %}">Accept</a>
               <a class="btn-decline btn btn-outline-danger" href="{% url 'offers:decline' offer.pk %}">Decline</a>
             </div>
             {% endif %}

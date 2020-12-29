@@ -26,18 +26,27 @@
                 <a href="{% url 'core:index' %}" class="nav-link logo">Business Doggies</a>
                 <nav class="nav nav-logo">
                     {% block header %}
-                        
                         {% if user.is_client %}
-                            <a href="{% url 'core:sitters' %}" class="nav-link">Find Sitter</a>
-                            <a href="{% url 'accounts:profile' %}" class="nav-link client-link">{{ user.first_name }} {{ user.last_name }}</a>
+                            <a href="{% url 'core:sitters' %}" class="nav-link sitter-link">Find Sitter</a>
+                            <a href="{% url 'offers:offers' %}" class="nav-link">Proposals</a>
+                            <a href="{% url 'offers:answers' %}" class="nav-link">Answers</a>
                         {% elif user.is_sitter %}
-                            <a href="{% url 'core:sitters' %}" class="nav-link">Find Sitter</a>
-                            <a href="{% url 'accounts:profile' %}" class="nav-link sitter-link">{{ user.first_name }} {{ user.last_name }}</a>
+                            <a href="{% url 'offers:offers' %}" class="nav-link">Offers</a>
+                            <a href="{% url 'offers:answers' %}" class="nav-link">Answered</a>
                         {% elif user.is_superuser %}
                             <a href="{% url 'admin:index' %}" class="nav-link logout-link">Admin</a>
                         {% endif %}
-                        
                     {% endblock header %}
+
+                    {% block name %}
+                        <a href="{% url 'accounts:profile' %}" class="nav-link {% if user.is_client %}client-link{% elif user.is_sitter %}sitter-link{% elif user.is_superuser %}admin-link{% endif %}">
+                            {% if user.get_full_name %}
+                                {{ user.get_full_name }}
+                            {% else %}
+                                {{ user.email }}
+                            {% endif %}
+                        </a>
+                    {% endblock name %}
                 </nav>
             </div>
             {% block hr %}
@@ -49,22 +58,10 @@
                     <hr class="hr-admin">
                 {% endif %}
             {% endblock hr %}
-
-            {% if user.is_client %}
-                <nav class="nav container">
-                    <a href="{% url 'offers:offers' %}" class="nav-link">Proposals</a>
-                    <a href="{% url 'offers:answers' %}" class="nav-link">Answers</a>
-                </nav>
-            {% elif user.is_sitter %}
-                <nav class="nav container">
-                    <a href="{% url 'offers:offers' %}" class="nav-link">Offers</a>
-                    <a href="{% url 'offers:answers' %}" class="nav-link">Answered</a>
-                </nav>
-            {% endif %}
         {% else %}
             <div class="calentito container">
                 <a href="{% url 'core:index' %}" class="nav-link">Business Doggies</a>
-                <nav class="nav">
+                <nav class="nav nav-logo">
                     <a href="{% url 'accounts:login' %}" class="nav-link">Log In</a>
                 </nav>
             </div>

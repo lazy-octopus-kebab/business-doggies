@@ -3,10 +3,11 @@
 {% block title %}- Sign Up{% endblock title %}
 
 {% block content %}
-        <div class="container">
-            <div><h1 class="signup title">Welcome<br/> to our platform</h1></div>
-            <form class="signup_sitter form" method="post" novalidate>
+<div class="container">
+    <div><h1 class="signup title">Welcome<br/> to our platform</h1></div>
+        <form class="signup_sitter form" method="post" novalidate>
         {% csrf_token %}
+            {{ form.user_type }}
             <div class="row">
                 <div class="col flex-column">
                     <div class="{% if form.email.errors %}error_field{% endif %}">
@@ -65,9 +66,6 @@
                         {{ form.non_field_errors }}
                     </div>
                 {% endif %}
-            </div>
-            <div class="invalid-feedback">
-                {{ form.errors }}
             </div>
             <button type="submit" class="signup_sitter signup_btn">Sign Up</button>
         </form> 
