@@ -193,6 +193,13 @@ a {
   color: #7764ed;
 }
 
+.name-admin {
+  font-size: 48px;
+  font-family: ConcertOne;
+  margin: 0 0 10 0;
+  color: #dd4242;
+}
+
 .header_description_wrapper {
   display: flex;
   justify-content: flex-start;
@@ -216,6 +223,18 @@ a {
   font-size: 16px;
   color: white;
   background: #7764ed;
+  border-radius: 60px;
+  border: none;
+  width: 85px;
+  height: 35px;
+  margin-left: 60px;
+}
+
+.edit-admin {
+  font-family: montserrat;
+  font-size: 16px;
+  color: white;
+  background: #dd4242;
   border-radius: 60px;
   border: none;
   width: 85px;
@@ -583,6 +602,14 @@ h3 {
 .footer a {
   color: black;
   text-decoration: none;
+}
+
+.admin-link {
+  color: #dd4242;
+}
+
+.admin-link:hover {
+  color: #a73131;
 }
 
 .client-link {
