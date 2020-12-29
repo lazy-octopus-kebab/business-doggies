@@ -8,11 +8,11 @@
             <div><h1 class="login title">We are glad<br/> to see you again</h1></div>
             <form class="login form" method="post" novalidate>
             {% csrf_token %}
-                <div class="col-12 p-0 {% if form.username.errors %}error_field{% endif %}">
-                    {{ form.username }}
-                    {% if form.username.errors %}
+                <div class="col-12 p-0 {% if form.login.errors %}error_field{% endif %}">
+                    {{ form.login }}
+                    {% if form.login.errors %}
                         <div class="text-danger small mb-0 pb-0 mt-2">
-                            {{ form.username.errors }}
+                            {{ form.login.errors }}
                         </div>
                     {% endif %}
                 </div>

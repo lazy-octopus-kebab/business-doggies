@@ -11,7 +11,7 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apk update && apk add \
     postgresql-dev gcc python3-dev musl-dev \
-    zlib-dev jpeg-dev
+    zlib-dev jpeg-dev libffi-dev
     
 RUN pip install --upgrade pip
 
@@ -36,7 +36,7 @@ RUN mkdir $APP_HOME/mediafiles
 
 WORKDIR $APP_HOME
 
-RUN apk update && apk add libpq zlib-dev jpeg-dev
+RUN apk update && apk add libpq zlib jpeg
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
 RUN pip install --no-cache /wheels/*

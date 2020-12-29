@@ -32,7 +32,6 @@ DEBUG = int(os.environ.get('DJANGO_DEBUG', 0))
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,8 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'django.contrib.sites',
+    
     # 3rd parties
+    'allauth',
+    'allauth.account',
     'guardian',
     'widget_tweaks',
     'phonenumber_field',
@@ -125,7 +127,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
+
     'guardian.backends.ObjectPermissionBackend',
+
+    'accounts.backends.AuthBackend',
 ]
 
 
@@ -158,9 +163,29 @@ STATICFILES_DIRS = [
 # Substituting a custom User model
 AUTH_USER_MODEL = 'accounts.User'
 
-# django-guardian
-GUARDIAN_MONKEY_PATCH = False
-
 # Media storage
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'mediafiles'
+
+# Other Configuration
+LOGIN_REDIRECT_URL = '/accounts/profile/'
+
+# Guardian Configuration
+GUARDIAN_MONKEY_PATCH = False
+
+# AllAuth Configuration
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# TODO: Temporary solution
+ACCOUNT_LOGOUT_ON_GET = True
+
+ACCOUNT_FORMS = {
+    'login': 'accounts.forms.UserLoginForm',
+    'signup': 'accounts.forms.UserSignUpForm',
+}
+
+SITE_ID = 1
