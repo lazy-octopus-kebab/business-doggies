@@ -23,7 +23,7 @@ GROUPS = {
 class Command(BaseCommand):
     help = "Create default groups with permissions"
 
-    def handle(self, *args, **kwargs):
+    def handle(self, *args, **options):
         for group_name in GROUPS:
             group, created = Group.objects.get_or_create(name=group_name)
 
@@ -34,6 +34,8 @@ class Command(BaseCommand):
                     try:
                         perm = Permission.objects.get(codename=codename)
                         group.permissions.add(perm)
-                        self.stdout.write("Adding permission " + codename + " to group " + group.__str__())
+                        if options['verbosity'] > 0:
+                            self.stdout.write("Adding permission " + codename + " to group " + group.__str__())
                     except Permission.DoesNotExist:
-                        self.stderr.write("Permission " + codename + " not found")
+                        if options['verbosity'] > 0:
+                            self.stderr.write("Permission " + codename + " not found")
