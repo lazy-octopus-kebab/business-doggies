@@ -28,5 +28,5 @@ urlpatterns = [
     path('profile/', UserProfileView.as_view(), name='profile'),
 
     # ex: /accounts/profile/1/
-    path('profile/<int:id>/', UserProfileView.as_view(), name='profile'),
+    path('profile/<int:pk>/', UserProfileView.as_view(), name='profile'),
 ]

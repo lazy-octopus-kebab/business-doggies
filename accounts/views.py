@@ -37,10 +37,10 @@ class UserProfileView(LoginRequiredMixin, View):
     template_name = 'accounts/profile.html'
 
     def get(self, request, *args, **kwargs):
-        if 'id' in kwargs:
-            user = get_object_or_404(User, pk=kwargs['id'])
-        else:
-            user = request.user
+        user = get_object_or_404(
+            User,
+            pk=kwargs.get('pk', request.user.pk)
+        )
 
         context = {
             'profile': user,
