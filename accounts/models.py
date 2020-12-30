@@ -1,5 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager, Group
+from django.urls import reverse
+from django.contrib.auth.models import (
+    AbstractUser,
+    BaseUserManager,
+    Group
+)
 
 from phonenumber_field.modelfields import PhoneNumberField
 from guardian.mixins import GuardianUserMixin
@@ -12,18 +17,42 @@ class UserManager(BaseUserManager):
 
     def _create_user(self, email, phone_number, password, **extra_fields):
         """Create and save a User with the given email and password."""
-        if not email:
-            raise ValueError('The given email must be set')
         email = self.normalize_email(email)
         user = self.model(email=email, phone_number=phone_number, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+
+        if extra_fields.get('is_client'):
+            group = Group.objects.get(name='Clients')
+            user.groups.add(group)
+            client = Client.objects.create(user=user)
+            client.save()
+        
+        elif extra_fields.get('is_sitter'):
+            user.save()
+            group = Group.objects.get(name='Sitters')
+            user.groups.add(group)
+            sitter = Sitter.objects.create(user=user)
+            sitter.save()
+
         return user
 
     def create_user(self, email, phone_number, password, **extra_fields):
         """Create and save a regular User with the given email and password."""
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
+        extra_fields.setdefault('is_client', False)
+        extra_fields.setdefault('is_sitter', False)
+
+        if not email:
+            raise ValueError('The Email must be set')
+
+        if not phone_number:
+            raise ValueError('The Phone number must be set')
+
+        if extra_fields.get('is_client') == extra_fields.get('is_sitter'):
+            raise ValueError('User must have is_client=True or is_sitter=True')
+
         return self._create_user(email, phone_number, password, **extra_fields)
 
     def create_superuser(self, email, phone_number, password, **extra_fields):
@@ -40,6 +69,10 @@ class UserManager(BaseUserManager):
 
 
 class User(GuardianUserMixin, AbstractUser):
+    """Define a model User"""
+
+    objects = UserManager()
+
     username = None
 
     email = models.EmailField("Email", unique=True)
@@ -61,13 +94,19 @@ class User(GuardianUserMixin, AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['phone_number']
 
-    objects = UserManager()
-
+    def get_absolute_url(self):
+        """Get absolute url of User profile"""
+        return reverse('accounts:profile', kwargs={'pk': self.pk})
+    
     def __str__(self):
         return self.email
 
 
 class Client(models.Model):
+    """
+    Define a model for User model to provide additional Client-related fields
+    """
+
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -79,6 +118,9 @@ class Client(models.Model):
 
 
 class Sitter(models.Model):
+    """
+    Define a model for User model to provide additional Sitter-related fields
+    """
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
