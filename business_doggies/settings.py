@@ -46,16 +46,17 @@ INSTALLED_APPS = [
     # 3rd parties
     'allauth',
     'allauth.account',
+    'rest_framework',
     'guardian',
     'widget_tweaks',
     'phonenumber_field',
 
     # own
-    'core',
-    'accounts',
     'offers',
     'reviews',
     'pets',
+    'core',
+    'accounts',
 ]
 
 MIDDLEWARE = [
