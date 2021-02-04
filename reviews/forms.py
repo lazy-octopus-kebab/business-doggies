@@ -1,6 +1,7 @@
 from django.forms import ModelForm, CharField, Textarea, ChoiceField
 
 from .models import Review, ReviewRating
+from .serializers import ReviewSerializer
 
 
 class ReviewForm(ModelForm):

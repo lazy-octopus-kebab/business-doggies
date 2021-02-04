@@ -2,55 +2,50 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.views.generic import View
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
-from django.http import HttpResponseForbidden
 from django.contrib.auth import get_user_model
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseNotFound,
+    HttpResponseBadRequest,
+    JsonResponse,
+)
+
+from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
+from rest_framework.generics import ListCreateAPIView
 
 from .forms import ReviewForm, ReviewRatingForm
 from .models import Review, ReviewRating
+from .serializers import ReviewSerializer
 
 
-class ReviewCreateView(PermissionRequiredMixin, LoginRequiredMixin, View):
-    permission_required = 'reviews.add_review'
-    target_permission = 'review.view_review'
-    template_name = 'offers/form.html'
+class ReviewList(ListCreateAPIView):
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+    serializer_class = ReviewSerializer
+    queryset = Review.objects.none()
     form_class = ReviewForm
-    success_url = reverse_lazy("accounts:profile")
 
-    def validate(self, author, target):
-        if not target.has_perm(self.target_permission) or \
-               target.pk == author.pk:
-            return False
-        return True
+    def get_queryset(self):
+        target = self.kwargs.get('target_id')
+        queryset = Review.objects.filter(target=target).order_by('-pub_date')
+        return queryset
 
-    def get(self, request, pk, *args, **kwargs):
-        target = get_object_or_404(get_user_model(), pk=pk)
-        if not self.validate(request.user, target):
-            return HttpResponseForbidden(request)
-        form = self.form_class()
-        context = {
-            'form': form,
-        }
-        return render(request, self.template_name, context)
-
-    def post(self, request, pk, *args, **kwargs):
+    def post(self, request, target_id):
         form = self.form_class(request.POST)
-
+        
         if form.is_valid():
             review = form.save(commit=False)
             review.author = request.user
-            review.target = get_object_or_404(get_user_model(), pk=pk)
+            review.target = get_object_or_404(get_user_model(), pk=target_id)
 
-            if not self.validate(request.user, review.target):
-                HttpResponseForbidden(request)
+            if not review.target.has_perm('review.view_review'):
+                HttpResponseForbidden()
 
             review.save()
 
-            return redirect(self.success_url)
+            serializer = self.serializer_class(review)
+            return JsonResponse(serializer.data, status=201)
 
-        context = {
-            'form': form,
-        }
-        return render(request, self.template_name, context)
+        return HttpResponseBadRequest()
 
 
 class ReviewRatingCreateView(PermissionRequiredMixin, LoginRequiredMixin, View):

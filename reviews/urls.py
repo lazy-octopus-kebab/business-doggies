@@ -1,14 +1,15 @@
 from django.urls import path
+
 from .views import (
-    ReviewCreateView,
-    ReviewRatingCreateView
+    ReviewList,
 ) 
+
 
 app_name = 'reviews'
 urlpatterns = [
-    # ex: /reviews/create/1/
-    path('create/<int:pk>/', ReviewCreateView.as_view(), name='create'),
+    # ex: /reviews/1/
+    path('<int:target_id>/', ReviewList.as_view(), name='reviews'),
 
-    # ex: /reviews/createrating/1
-    path('createrating/<int:pk>/', ReviewRatingCreateView.as_view(), name='createrating'),
+    # ex: /reviews/1/rating
+    path('<int:user_id>/rating/', ReviewList.as_view(), name='reviews_rating'),
 ]
