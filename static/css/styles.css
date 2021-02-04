@@ -379,6 +379,14 @@ a {
   border-radius: 20px;
 }
 
+.avatar-review {
+  width: 96px; /*container-width*/
+  height: 96px;
+  border-radius: 20px;
+  background-position: center;
+  background-size: cover;
+}
+
 .pet-card {
   height: 350px;
   border-radius: 25px;

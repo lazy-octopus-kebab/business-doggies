@@ -1,17 +1,17 @@
 function addReview() {
-    url = "/reviews/create/" + $("#submit-review").val();
-  
     $.ajax({
       type: "POST",
-      url: url,
+      url: $(this).attr('action'),
       data: $(this).serialize(),
       success: function (data) {
-        showSuccToast('Review added Successfully!');
+        console.log(data);
       },
       error: function (data) {
-        showFailToast('Review is not added!', data.responseJSON.error);
+        console.log(data);
       }
     });
+    
+    $(this)[0].reset();
   
     return false;
 }
@@ -59,5 +59,7 @@ function pet_description() {
     });
 }
 
+// $("#add-review").on("submit", addReview);
+// $('#add-review textarea').autoResize();
 $('.send_btn.hire').on('click', send_offer);
 $('.send_btn.pet').on('click', pet_description);

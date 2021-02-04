@@ -1,14 +1,24 @@
 {% extends 'base.html' %}
 
+{% load widget_tweaks %}
+
 {% load static %}
 
 {% block title %} - {{profile.first_name}} {{profile.last_name}}{% endblock title %}
 
-{% if user == profile %}
-  {% block name %}                     
-    <a href="{% url 'accounts:logout' %}" class="nav-link logout-link">Log Out</a>                  
-  {% endblock name %}
-{% endif %}
+{% block name %}   
+  {% if user == profile %}         
+    <a href="{% url 'accounts:logout' %}" class="nav-link logout-link">Log Out</a>
+  {% else %}
+    <a href="{% url 'accounts:profile' %}" class="nav-link {% if user.is_client %}client-link{% elif user.is_sitter %}sitter-link{% elif user.is_superuser %}admin-link{% endif %}">
+      {% if user.get_full_name %}
+        {{ user.get_full_name }}
+      {% else %}
+        {{ user.email }}
+      {% endif %}
+    </a>
+  {% endif %}
+{% endblock name %}
 
 {% block content %}
 <div class="container mt-5">
@@ -148,31 +158,42 @@
 
       <div class="reviews mt-5">
         <p class="name mb-4">Reviews about {{ profile.get_short_name }}</p>
-        {% if user != profile and not user.is_client %}
-          <form id="add-review" method="post" action="{% url 'reviews:create' profile.pk %}">
+        {% if profile.is_client and user != profile and user.is_sitter %}
+          <form id="add-review" action="{% url 'reviews:reviews' profile.pk %}">
              {% csrf_token %}
             <div class="d-flex align-items-center">
                 {{ form_review.text }}
               <button id="submit-review" val="{{ profile.pk }}" type="submit" class="edit-sitter btn">Send</button>
             </div>
           </form>
-          <script>
-            $("#add-review").on("submit", addReview);
-            $('#add-review textarea').autoResize();
-          </script>
+        {% elif profile.is_sitter and user != profile and user.is_client %}
+          <div class="mb-5">
+            <form id="add-review" method="post" action="{% url 'reviews:reviews_rating' profile.pk %}">
+              {% csrf_token %}
+              <div class="d-flex align-items-center">
+                {{ form_review.text }}
+                <div>
+                  {{ form_review.rating }}
+                  <button id="submit-review" val="{{ profile.pk }}" type="submit" class="edit-sitter btn">Send</button>
+                </div>
+              </div>
+            </form>
+          </div>
         {% endif %}
         {% for review in profile.reviews_review_recv.all %}
-          {% if forloop.counter > 1 %}<hr class="hr-client" style="width: 50%;" align="left">{% endif %}
-          <div class="review">
-          <div class="review_contant_wrapper">
-            <div class="name_stars_wrapper">
-              <p><a href="{% url 'accounts:profile' review.author.pk %}">{{ review.author.get_full_name }}</a></p>
+          {% if forloop.counter > 1 %}<hr class="{% if profile.is_client %}hr-client{% elif profile.is_sitter %}hr-sitter{% endif %}" style="width: 50%;" align="left">{% endif %}
+          <div class="review d-flex my-4">
+            <div class="avatar-review shadow mr-3" style="background-image: url({% if review.author.image %}{{ review.author.image.url }}{% else %}{% static 'img/default-avatar.png' %}{% endif %});"></div>
+            <div class="w-100">
+              <div class="review_contant_wrapper">
+                <div class="name_stars_wrapper">
+                  <p><a href="{% url 'accounts:profile' review.author.pk %}">{{ review.author.get_full_name }}</a></p>
+                </div>
+                <div class="ml-100 data">{{ review.pub_date }}</div>
+              </div>
+              <p class="comment">{{ review.text }}</p>
             </div>
-            <div class="data">{{ review.pub_date }}</div>
           </div>
-          <p class="comment">{{ review.text }}</p>
-          <div class="review_background"></div>
-        </div>
         {% endfor %}
       </div>
     </div>

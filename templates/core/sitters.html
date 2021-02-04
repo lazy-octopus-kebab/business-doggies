@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}- Sitters{% endblock title %}
 
 {% block content %}
@@ -7,7 +9,7 @@
         {% for sitter in sitters %}
             <div class="p-4 rounded-lg text-light position-relative mb-4 mx-2 sitter-card">
                 <div class="media align-items-center">
-                    <div class="sitter-img mr-3 shadow" style="background-image: url({{ sitter.image.url }});"></div>
+                    <div class="sitter-img mr-3 shadow" style="background-image: url({% if sitter.image %}{{ sitter.image.url }}{% else %}{% static 'img/default-avatar.png' %}{% endif %});"></div>
                     <div class="media-body mr-3">
                         <h1 class="display-3 font-weight-bold name">{{ sitter.first_name }} {{ sitter.last_name }}</h1>
                         {% if sitter.sitter.description %}
