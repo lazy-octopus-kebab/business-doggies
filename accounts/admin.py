@@ -3,8 +3,7 @@ from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
 
 from allauth.account.models import EmailAddress
 
-from .forms import UserSignUpForm
-from .models import User, Sitter, Client
+from .models import User, SitterMore, ClientMore
 
 
 class ReadOnlyInline(admin.StackedInline):
@@ -23,11 +22,11 @@ class EmailAddressInline(ReadOnlyInline):
 
 
 class ClientInline(ReadOnlyInline):
-    model = Client
+    model = ClientMore
 
 
 class SitterInline(ReadOnlyInline):
-    model = Sitter
+    model = SitterMore
     fields = ('description',)
 
 

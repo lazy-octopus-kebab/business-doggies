@@ -8,6 +8,7 @@ from allauth.account.utils import setup_user_email
 from phonenumber_field.formfields import PhoneNumberField
 
 from .models import Client, Sitter
+from .services import set_user_type
 
 
 class UserSignUpForm(SignupForm):
@@ -50,20 +51,11 @@ class UserSignUpForm(SignupForm):
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
 
-        if self.cleaned_data['user_type'] == self.USER_CLIENT:
-            user.is_client = True
-            user.save()
-            group = Group.objects.get(name='Clients')
-            user.groups.add(group)
-            client = Client.objects.create(user=user)
-            client.save()
-        elif self.cleaned_data['user_type'] == self.USER_SITTER:
-            user.is_sitter = True
-            user.save()
-            group = Group.objects.get(name='Sitters')
-            user.groups.add(group)
-            sitter = Sitter.objects.create(user=user)
-            sitter.save()
+        set_user_type(
+            user,
+            self.cleaned_data['user_type'] == self.USER_CLIENT,
+            self.cleaned_data['user_type'] == self.USER_SITTER
+        )
 
     def save(self, request):
         adapter = get_adapter(request)
@@ -91,7 +83,7 @@ class UserLoginForm(LoginForm):
         )
 
         self.fields['login'] = login_field
-        
+
     def user_credentials(self):
         """
         Provides the credentials required to authenticate the user for
@@ -104,4 +96,3 @@ class UserLoginForm(LoginForm):
         credentials["phone_number"] = login
         credentials["password"] = self.cleaned_data["password"]
         return credentials
-

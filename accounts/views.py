@@ -8,35 +8,39 @@ from reviews.forms import ReviewForm
 from pets.forms import PetForm
 from offers.forms import MakeOfferForm
 
-from .forms import UserSignUpForm, UserLoginForm
 from .models import User
+from .forms import UserSignUpForm, UserLoginForm
 
 
 class ClientSignUpView(SignupView):
+    """View for registering a User as a Client"""
     form_class = UserSignUpForm
     template_name = 'accounts/signup_client.html'
     initial = {'user_type': form_class.USER_CLIENT}
 
 
 class SitterSignUpView(SignupView):
+    """View for registering a User as a Sitter"""
     form_class = UserSignUpForm
     template_name = 'accounts/signup_sitter.html'
     initial = {'user_type': form_class.USER_SITTER}
 
 
 class UserLoginView(LoginView):
+    """User Authentication View"""
     form_class = UserLoginForm
     template_name = 'accounts/login.html'
 
 
 class UserProfileView(LoginRequiredMixin, View):
+    """View of the User profile"""
     form_review_class = ReviewForm
     form_pet_class = PetForm
     form_offer_class = MakeOfferForm
 
     template_name = 'accounts/profile.html'
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, **kwargs):
         user = get_object_or_404(
             User,
             pk=kwargs.get('pk', request.user.pk)
@@ -64,3 +68,4 @@ class SitterListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         queryset = self.model.objects.filter(is_sitter=True)
         return queryset
+

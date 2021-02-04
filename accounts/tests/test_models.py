@@ -12,10 +12,6 @@ from accounts.models import (
 
 
 class UserManagerTest(TestCase):
-    @classmethod
-    def setUpTestData(cls):
-        call_command('creategroups', verbosity=0)
-
     def test_create_client_user(self):
         user = User.objects.create_user(
             email='email@mail.com',
